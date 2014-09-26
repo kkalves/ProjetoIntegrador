@@ -14,7 +14,7 @@ import model.Curso;
  */
 public class CursoDAO {
     
-    public static boolean cadastrar(Curso curso) throws SQLException {
+    public boolean cadastrar(Curso curso) throws SQLException {
         PreparedStatement pstm;
         String sqlInserir = "INSERT INT curso (nome, descricao, eixoTecnologico, cargaHoraria, status)"
                 + " VALUES (?, ?, ?, ?, ?);";
@@ -31,7 +31,7 @@ public class CursoDAO {
         return true;
     }
     
-    public static void atualizar(Curso curso) throws SQLException {
+    public void atualizar(Curso curso) throws SQLException {
         PreparedStatement pstm;
         String sqlAtualizar = "UPDATE orientador SET nome = ?, descricao = ?, eixoTecnologico = ?, cargaHoraria = ?, status = ?"
                 + " WHERE idCurso = ?;";
@@ -48,7 +48,7 @@ public class CursoDAO {
         System.out.println("Atualizado com sucesso!");
     }
     
-    public static int remover(int id) throws SQLException {
+    public int remover(int id) throws SQLException {
         PreparedStatement pstm;
         int result = 0;
         String sqlRemover = "DELETE FROM curso WHERE id = ?;";
@@ -61,7 +61,7 @@ public class CursoDAO {
         return result;
     }
     
-    public static Curso buscarPorNome(String nome) throws SQLException {
+    public Curso buscarPorNome(String nome) throws SQLException {
         PreparedStatement pstm;
         ResultSet rs;
         String sqlBuscar = "SELECT * FROM curso WHERE nome LIKE '" + nome + "%';";

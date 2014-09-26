@@ -3,10 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package form;
 
+import dao.CursoDAO;
 import java.awt.TextArea;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import model.Curso;
 
 /**
  *
@@ -20,10 +26,14 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
     public DlgGerenciadorCurso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.taDescricao.setLineWrap(true);
     }
-    public void FormatarDescricao(){
-        TextArea ta = new TextArea("Escreva aqui a descrição do curso", 20, TextArea.SCROLLBARS_VERTICAL_ONLY);
-    }
+
+    private CursoDAO cursoDAO = new CursoDAO();
+    private Curso curso;
+    List<Curso> cursoList;
+    int idCurso;
+    private boolean pesquisa;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,6 +95,11 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
 
         chBStatus.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         chBStatus.setText("Inativo");
+        chBStatus.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                chBStatusStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -152,21 +167,30 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         btCadastrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Adicionar.png"))); // NOI18N
         btCadastrar.setText("Cadastrar");
+        btCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btCadastrar);
 
         btConsultar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Procurar.png"))); // NOI18N
         btConsultar.setText("Consultar");
+        btConsultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.add(btConsultar);
 
         btAlterar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Atualizar.png"))); // NOI18N
         btAlterar.setText("Alterar");
+        btAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.add(btAlterar);
 
         btExcluir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Excluir.png"))); // NOI18N
         btExcluir.setText("Excluir");
+        btExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.add(btExcluir);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,6 +218,70 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void chBStatusStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chBStatusStateChanged
+        if (this.chBStatus.isSelected()) {
+            tratarCampos(false);
+        } else {
+            tratarCampos(true);
+        }
+    }//GEN-LAST:event_chBStatusStateChanged
+
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        try {
+            if (Curso == null) {
+                curso = new Curso();
+                this.getDados();
+                if (cursoDAO.cadastrar(curso)) {
+                    JOptionPane.showMessageDialog(this, "Curso Inserido com sucesso!");
+                    this.limparCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Esse curso já foi cadastrado!",
+                            "Cadastro de Curso", JOptionPane.ERROR_MESSAGE);
+                    curso = null;
+                }
+            } else {
+                this.getDados();
+                cursoDAO.atualizar(curso);
+                this.limparCampos();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btCadastrarActionPerformed
+
+    private void getDados() {
+        if (!tfNome.getText().isEmpty()) {
+            curso.setNome(tfNome.getText());
+            curso.setDescricao(taDescricao.getText());
+            curso.setEixoTecnologico(tfEixoTecnologico.getText());
+            curso.setCargaHoraria(tfCargaHoraria.getText());
+            curso.setStatus(chBStatus.isSelected());
+        }
+    }
+
+    private void setDados() {
+        this.tfNome.setText(curso.getNome());
+        this.taDescricao.setText(curso.getDescricao());
+        this.tfEixoTecnologico.setText(curso.getEixoTecnologico());
+        this.tfCargaHoraria.setText(curso.getCargaHoraria());
+        this.chBStatus.setSelected(curso.isStatus());
+    }
+
+    private void tratarCampos(boolean status) {
+        this.tfNome.setEnabled(status);
+        this.taDescricao.setEnabled(status);
+        this.tfEixoTecnologico.setEnabled(status);
+        this.tfCargaHoraria.setEnabled(status);
+    }
+
+    private void limparCampos() {
+        this.tfNome.setText(null);
+        this.taDescricao.setText(null);
+        this.tfEixoTecnologico.setText(null);
+        this.tfCargaHoraria.setText(null);
+        this.chBStatus.setSelected(false);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -205,7 +293,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
