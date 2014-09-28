@@ -6,7 +6,6 @@
 package form;
 
 import dao.CursoDAO;
-import java.awt.TextArea;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,7 +43,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelPrincipal = new javax.swing.JPanel();
         lbEixoTecnologico = new javax.swing.JLabel();
         lbDescricao = new javax.swing.JLabel();
         lbCargaHoraria = new javax.swing.JLabel();
@@ -56,16 +55,15 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         lbNome = new javax.swing.JLabel();
         lbStatus = new javax.swing.JLabel();
         chBStatus = new javax.swing.JCheckBox();
-        jPanel2 = new javax.swing.JPanel();
+        panelButtons = new javax.swing.JPanel();
         btCadastrar = new javax.swing.JButton();
         btConsultar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gerenciador Curso");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panelPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Do Curso", 2, 2, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 204))); // NOI18N
 
         lbEixoTecnologico.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbEixoTecnologico.setText("Eixo Tecnológico:");
@@ -101,35 +99,35 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
+        panelPrincipal.setLayout(panelPrincipalLayout);
+        panelPrincipalLayout.setHorizontalGroup(
+            panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lbEixoTecnologico)
                         .addGap(18, 18, 18)
                         .addComponent(tfEixoTecnologico, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
                                 .addGap(60, 60, 60)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbNome)
                                     .addComponent(lbDescricao)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lbCargaHoraria)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                                     .addComponent(tfNome)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(tfCargaHoraria)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -138,31 +136,31 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                         .addComponent(chBStatus)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelPrincipalLayout.setVerticalGroup(
+            panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbNome)
                     .addComponent(lbStatus)
                     .addComponent(chBStatus))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbDescricao))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbEixoTecnologico)
                     .addComponent(tfEixoTecnologico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCargaHoraria)
                     .addComponent(tfCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setLayout(new java.awt.GridLayout());
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0));
 
         btCadastrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Adicionar.png"))); // NOI18N
@@ -173,25 +171,35 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                 btCadastrarActionPerformed(evt);
             }
         });
-        jPanel2.add(btCadastrar);
+        panelButtons.add(btCadastrar);
 
         btConsultar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Procurar.png"))); // NOI18N
         btConsultar.setText("Consultar");
         btConsultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(btConsultar);
+        btConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultarActionPerformed(evt);
+            }
+        });
+        panelButtons.add(btConsultar);
 
         btAlterar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Atualizar.png"))); // NOI18N
         btAlterar.setText("Alterar");
         btAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(btAlterar);
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
+        panelButtons.add(btAlterar);
 
         btExcluir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Excluir.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(btExcluir);
+        panelButtons.add(btExcluir);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,19 +207,19 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,7 +236,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         try {
-            if (Curso == null) {
+            if (curso == null) {
                 curso = new Curso();
                 this.getDados();
                 if (cursoDAO.cadastrar(curso)) {
@@ -239,24 +247,45 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                             "Cadastro de Curso", JOptionPane.ERROR_MESSAGE);
                     curso = null;
                 }
-            } else {
-                this.getDados();
-                cursoDAO.atualizar(curso);
-                this.limparCampos();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
-    private void getDados() {
-        if (!tfNome.getText().isEmpty()) {
-            curso.setNome(tfNome.getText());
-            curso.setDescricao(taDescricao.getText());
-            curso.setEixoTecnologico(tfEixoTecnologico.getText());
-            curso.setCargaHoraria(tfCargaHoraria.getText());
-            curso.setStatus(chBStatus.isSelected());
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        if (curso != null) {
+            try {
+                this.getDados();
+                cursoDAO.atualizar(curso);
+                this.limparCampos();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
         }
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
+        try {
+            String nome = JOptionPane.showInputDialog("Informe o nome que deseja pesquisar: ");
+            curso = cursoDAO.buscarPorNome(nome);
+            if (curso == null) {
+                JOptionPane.showMessageDialog(null, "Curso Inexistente!");
+            } else {
+                this.setDados();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btConsultarActionPerformed
+
+    private void getDados() {
+        curso.setNome(tfNome.getText());
+        curso.setDescricao(taDescricao.getText());
+        curso.setEixoTecnologico(tfEixoTecnologico.getText());
+        curso.setCargaHoraria(tfCargaHoraria.getText());
+        curso.setStatus(chBStatus.isSelected());
     }
 
     private void setDados() {
@@ -293,7 +322,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -330,14 +359,14 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
     private javax.swing.JButton btConsultar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JCheckBox chBStatus;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCargaHoraria;
     private javax.swing.JLabel lbDescricao;
     private javax.swing.JLabel lbEixoTecnologico;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbStatus;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTextArea taDescricao;
     private javax.swing.JTextField tfCargaHoraria;
     private javax.swing.JTextField tfEixoTecnologico;

@@ -13,10 +13,10 @@ import model.Curso;
  * @author Giseli e Keyve
  */
 public class CursoDAO {
-    
+
     public boolean cadastrar(Curso curso) throws SQLException {
         PreparedStatement pstm;
-        String sqlInserir = "INSERT INT curso (nome, descricao, eixoTecnologico, cargaHoraria, status)"
+        String sqlInserir = "INSERT INTO curso (nome, descricao, eixoTecnologico, cargaHoraria, status)"
                 + " VALUES (?, ?, ?, ?, ?);";
         pstm = DBConnection.getConnection().prepareStatement(sqlInserir);
         pstm.setString(1, curso.getNome());
@@ -26,28 +26,28 @@ public class CursoDAO {
         pstm.setBoolean(5, curso.isStatus());
         pstm.executeUpdate();
         pstm.close();
-        DBConnection.fechar();
+        DBConnection.close();
         System.out.println("Cadastrado com sucesso!");
         return true;
     }
-    
+
     public void atualizar(Curso curso) throws SQLException {
         PreparedStatement pstm;
         String sqlAtualizar = "UPDATE orientador SET nome = ?, descricao = ?, eixoTecnologico = ?, cargaHoraria = ?, status = ?"
                 + " WHERE idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlAtualizar);
-        pstm.setInt(1, curso.getId());
-        pstm.setString(2, curso.getNome());
-        pstm.setString(3, curso.getDescricao());
-        pstm.setString(4, curso.getEixoTecnologico());
-        pstm.setString(5, curso.getCargaHoraria());
-        pstm.setBoolean(6, curso.isStatus());
+        pstm.setString(1, curso.getNome());
+        pstm.setString(2, curso.getDescricao());
+        pstm.setString(3, curso.getEixoTecnologico());
+        pstm.setString(4, curso.getCargaHoraria());
+        pstm.setBoolean(5, curso.isStatus());
+        pstm.setInt(6, curso.getId());
         pstm.executeUpdate();
         pstm.close();
-        DBConnection.fechar();
+        DBConnection.close();
         System.out.println("Atualizado com sucesso!");
     }
-    
+
     public int remover(int id) throws SQLException {
         PreparedStatement pstm;
         int result = 0;
@@ -56,11 +56,11 @@ public class CursoDAO {
         pstm.setLong(1, id);
         result = pstm.executeUpdate();
         pstm.close();
-        DBConnection.fechar();
+        DBConnection.close();
         System.out.println("Removido com sucesso!");
         return result;
     }
-    
+
     public Curso buscarPorNome(String nome) throws SQLException {
         PreparedStatement pstm;
         ResultSet rs;
@@ -78,7 +78,7 @@ public class CursoDAO {
         }
         return null;
     }
-    
+
     public List<Curso> listarTodos() throws SQLException {
         PreparedStatement pstm;
         List<Curso> cursos = new ArrayList<>();
@@ -96,7 +96,7 @@ public class CursoDAO {
             cursos.add(curso);
         }
         pstm.close();
-        DBConnection.fechar();
+        DBConnection.close();
         return cursos;
     }
 }

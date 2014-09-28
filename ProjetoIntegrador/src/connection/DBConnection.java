@@ -3,6 +3,8 @@ package connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -10,23 +12,30 @@ import java.sql.SQLException;
  */
 public class DBConnection {
 
-    private static final String urlMySql = "jdbc:mysql://localhost/projetointegrador";
-    private static final String user = "root";
-    private static final String pass = "12345";
-
     private static Connection connection;
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
+        return connection = connect();
+    }
+
+    private static Connection connect() throws SQLException {
+        String url = "jdbc:mysql://localhost/projetointegrador";
+        String driverMySQL = "com.mysql.jdbc.Driver";
+        String user = "root";
+        String pass = "12345";
+        try {
+            Class.forName(driverMySQL);
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Erro DBConnection" + ex.getMessage());
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        connection = DriverManager.getConnection(url, user, pass);
+        System.out.println("Conectou certinhooooooooo");
         return connection;
     }
 
-    public static void abrir() throws SQLException {
-        connection = DriverManager.getConnection(urlMySql, user, pass);
-        System.out.println("Abrindo conexão!");
-    }
-
-    public static void fechar() throws SQLException {
-        connection.close();
+    public static void close() throws SQLException {
         System.out.println("Fechando conexão!");
+        connection.close();
     }
 }

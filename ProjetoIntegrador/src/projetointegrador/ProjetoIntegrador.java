@@ -6,6 +6,8 @@
 
 package projetointegrador;
 
+import form.DlgGerenciadorCurso;
+
 /**
  *
  * @author Família
