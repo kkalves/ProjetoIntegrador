@@ -63,7 +63,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Do Curso", 2, 2, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 204))); // NOI18N
+        panelPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Do Curso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 204))); // NOI18N
 
         lbEixoTecnologico.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbEixoTecnologico.setText("Eixo Tecnológico:");
@@ -93,6 +93,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
 
         chBStatus.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         chBStatus.setText("Inativo");
+        chBStatus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         chBStatus.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 chBStatusStateChanged(evt);
@@ -163,7 +164,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         panelButtons.setLayout(new java.awt.GridLayout(1, 0));
 
         btCadastrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Adicionar.png"))); // NOI18N
+        btCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cadastrar.png"))); // NOI18N
         btCadastrar.setText("Cadastrar");
         btCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +175,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         panelButtons.add(btCadastrar);
 
         btConsultar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Procurar.png"))); // NOI18N
+        btConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/consultar.png"))); // NOI18N
         btConsultar.setText("Consultar");
         btConsultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +186,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         panelButtons.add(btConsultar);
 
         btAlterar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Atualizar.png"))); // NOI18N
+        btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/alterar.png"))); // NOI18N
         btAlterar.setText("Alterar");
         btAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +197,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         panelButtons.add(btAlterar);
 
         btExcluir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Excluir.png"))); // NOI18N
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/remover.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panelButtons.add(btExcluir);
@@ -209,7 +210,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -218,7 +219,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

@@ -33,7 +33,7 @@ public class CursoDAO {
 
     public void atualizar(Curso curso) throws SQLException {
         PreparedStatement pstm;
-        String sqlAtualizar = "UPDATE orientador SET nome = ?, descricao = ?, eixoTecnologico = ?, cargaHoraria = ?, status = ?"
+        String sqlAtualizar = "UPDATE curso SET nome = ?, descricao = ?, eixoTecnologico = ?, cargaHoraria = ?, status = ?"
                 + " WHERE idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlAtualizar);
         pstm.setString(1, curso.getNome());
