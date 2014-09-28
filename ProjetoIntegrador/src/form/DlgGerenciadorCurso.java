@@ -200,6 +200,11 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/remover.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
         panelButtons.add(btExcluir);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -259,6 +264,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             try {
                 this.getDados();
                 cursoDAO.atualizar(curso);
+                JOptionPane.showMessageDialog(this, "Curso Atualizado com sucesso!");
                 this.limparCampos();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
@@ -280,6 +286,10 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btConsultarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btExcluirActionPerformed
 
     private void getDados() {
         curso.setNome(tfNome.getText());

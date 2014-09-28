@@ -53,7 +53,7 @@ public class CursoDAO {
         int result = 0;
         String sqlRemover = "DELETE FROM curso WHERE id = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlRemover);
-        pstm.setLong(1, id);
+        pstm.setInt(1, id);
         result = pstm.executeUpdate();
         pstm.close();
         DBConnection.close();
