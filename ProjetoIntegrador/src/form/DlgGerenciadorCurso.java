@@ -27,7 +27,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         initComponents();
         this.taDescricao.setLineWrap(true);
     }
-
+    
     private CursoDAO cursoDAO = new CursoDAO();
     private Curso curso;
     List<Curso> cursoList;
@@ -62,6 +62,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         btExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(null);
 
         panelPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Do Curso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 204))); // NOI18N
 
@@ -271,26 +272,27 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btAlterarActionPerformed
-
+    DlgConsultar telaConsulta = new DlgConsultar(null, true);
     private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
-        try {
-            String nome = JOptionPane.showInputDialog("Informe o nome que deseja pesquisar: ");
-            curso = cursoDAO.buscarPorNome(nome);
-            if (curso == null) {
-                JOptionPane.showMessageDialog(null, "Curso Inexistente!");
-            } else {
-                this.setDados();
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-            Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        telaConsulta.setVisible(true);
+//        try {
+//            String nome = JOptionPane.showInputDialog("Informe o nome que deseja pesquisar: ");
+//            curso = cursoDAO.buscarPorNome(nome);
+//            if (curso == null) {
+//                JOptionPane.showMessageDialog(null, "Curso Inexistente!");
+//            } else {
+//                this.setDados();
+//            }
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(this, ex.getMessage());
+//            Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btConsultarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btExcluirActionPerformed
-
+    
     private void getDados() {
         curso.setNome(tfNome.getText());
         curso.setDescricao(taDescricao.getText());
@@ -298,7 +300,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         curso.setCargaHoraria(tfCargaHoraria.getText());
         curso.setStatus(chBStatus.isSelected());
     }
-
+    
     private void setDados() {
         this.tfNome.setText(curso.getNome());
         this.taDescricao.setText(curso.getDescricao());
@@ -306,14 +308,14 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         this.tfCargaHoraria.setText(curso.getCargaHoraria());
         this.chBStatus.setSelected(curso.isStatus());
     }
-
+    
     private void tratarCampos(boolean status) {
         this.tfNome.setEnabled(status);
         this.taDescricao.setEnabled(status);
         this.tfEixoTecnologico.setEnabled(status);
         this.tfCargaHoraria.setEnabled(status);
     }
-
+    
     private void limparCampos() {
         this.tfNome.setText(null);
         this.taDescricao.setText(null);
