@@ -3,10 +3,12 @@ package dao;
 import connection.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Curso;
+import table.FormatoTabela;
 
 /**
  *
@@ -79,6 +81,30 @@ public class CursoDAO {
         return null;
     }
 
+    public Curso buscarPorId(int idCurso) throws SQLException {
+        String sqlCurso = "SELECT * FROM curso c WHERE c.idCurso = ?;";
+        PreparedStatement pstm = DBConnection.getConnection().prepareStatement(sqlCurso);
+        pstm.setInt(1, idCurso);
+        // Executamos a instrução de consulta do registro
+        pstm.execute();
+        // Colocamos o resultado da consulta em objeto específico
+        ResultSet rs = pstm.getResultSet();
+        Curso curso;
+        if (rs.first()) {
+            curso = new Curso(
+                    rs.getInt("c.idCurso"),
+                    rs.getString("c.nome"),
+                    rs.getString("c.descricao"),
+                    rs.getString("c.eixoTecnologico"),
+                    rs.getString("c.cargaHoraria"),
+                    rs.getBoolean("c.status")
+            );
+            return curso;
+        } else {
+            return null;
+        }
+    }
+
     public List<Curso> listarTodos() throws SQLException {
         PreparedStatement pstm;
         List<Curso> cursos = new ArrayList<>();
@@ -98,5 +124,34 @@ public class CursoDAO {
         pstm.close();
         DBConnection.close();
         return cursos;
+    }
+
+    public FormatoTabela consultarSQL(String sql) throws SQLException {
+        PreparedStatement pstm = DBConnection.getConnection().prepareStatement(sql);
+        pstm.execute();
+
+        ResultSet rs = pstm.getResultSet();
+        ResultSetMetaData rsmd = rs.getMetaData();
+
+        FormatoTabela tabela = new FormatoTabela();
+
+        //Extrair o nome da coluna
+        //Extrair o nome da coluna
+        int qtdColunas = rsmd.getColumnCount();
+        for (int i = 1; i < qtdColunas; i++) {
+            tabela.getCabecalho().add(rsmd.getColumnName(i));
+        }
+        String[] linha;
+        while (rs.next()) {
+            //Inicializar o vetor linha
+            linha = new String[qtdColunas];
+            for (int i = 1; i <= qtdColunas; i++) {
+                linha[i - 1] = rs.getString(i);
+            }
+            //Adiciona a linha ao dados a serem adicionados na tabela
+            tabela.getDados().add(linha);
+        }
+        DBConnection.close();
+        return tabela;
     }
 }

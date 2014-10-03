@@ -274,6 +274,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
     }//GEN-LAST:event_btAlterarActionPerformed
     DlgConsultar telaConsulta = new DlgConsultar(null, true);
     private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
+        this.setVisible(false);
         telaConsulta.setVisible(true);
 //        try {
 //            String nome = JOptionPane.showInputDialog("Informe o nome que deseja pesquisar: ");
@@ -322,6 +323,19 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         this.tfEixoTecnologico.setText(null);
         this.tfCargaHoraria.setText(null);
         this.chBStatus.setSelected(false);
+    }
+    
+    public void recuperarDadosAlterarCurso(int idCurso) {
+        try {
+            curso = new CursoDAO().buscarPorId(idCurso);
+            this.tfNome.setText(curso.getNome());
+            this.taDescricao.setText(curso.getDescricao());
+            this.tfEixoTecnologico.setText(curso.getEixoTecnologico());
+            this.tfCargaHoraria.setText(curso.getCargaHoraria());
+            this.chBStatus.setSelected(curso.isStatus());
+        } catch (SQLException ex) {
+            Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
