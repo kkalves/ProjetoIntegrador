@@ -7,9 +7,11 @@ package model;
 
 /**
  *
- * @author Familia
+ * @author Giseli e Keyve
  */
 public class Endereco {
+
+    private int id;
 
     private String rua;
     private int numero;
@@ -17,12 +19,32 @@ public class Endereco {
     private String estado;
     private String cidade;
 
+    public Endereco(int id, String rua, int numero, String bairro, String estado, String cidade) {
+        this.id = id;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.estado = estado;
+        this.cidade = cidade;
+    }
+
     public Endereco(String rua, int numero, String bairro, String estado, String cidade) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
         this.estado = estado;
         this.cidade = cidade;
+    }
+
+    public Endereco() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getRua() {

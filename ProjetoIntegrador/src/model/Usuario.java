@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Familia
+ * @author Giseli e Keyve
  */
 public class Usuario {
 

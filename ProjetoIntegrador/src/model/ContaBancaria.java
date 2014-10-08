@@ -1,32 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 /**
  *
- * @author Familia
+ * @author Giseli e Keyve
  */
 public class ContaBancaria {
 
-    private String banco;
-    private int agencia;
-    private long numeroConta;
+    private int id;
 
-    public ContaBancaria(String banco, int agencia, long numeroConta) {
-        this.banco = banco;
+    private String nomeBanco;
+    private int agencia;
+    private int numeroConta;
+
+    public ContaBancaria(int id, String banco, int agencia, int numeroConta) {
+        this.id = id;
+        this.nomeBanco = banco;
         this.agencia = agencia;
         this.numeroConta = numeroConta;
     }
 
-    public String getBanco() {
-        return banco;
+    public ContaBancaria(String banco, int agencia, int numeroConta) {
+        this.nomeBanco = banco;
+        this.agencia = agencia;
+        this.numeroConta = numeroConta;
     }
 
-    public void setBanco(String banco) {
-        this.banco = banco;
+    public ContaBancaria() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNomeBanco() {
+        return nomeBanco;
+    }
+
+    public void setNomeBanco(String nomeBanco) {
+        this.nomeBanco = nomeBanco;
     }
 
     public int getAgencia() {
@@ -37,11 +52,11 @@ public class ContaBancaria {
         this.agencia = agencia;
     }
 
-    public long getNumeroConta() {
+    public int getNumeroConta() {
         return numeroConta;
     }
 
-    public void setNumeroConta(long numeroConta) {
+    public void setNumeroConta(int numeroConta) {
         this.numeroConta = numeroConta;
     }
 

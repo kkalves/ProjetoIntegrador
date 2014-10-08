@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package form;
 
 import dao.CursoDAO;
@@ -15,7 +10,7 @@ import model.Curso;
 
 /**
  *
- * @author Família
+ * @author Giseli e Keyve
  */
 public class DlgGerenciadorCurso extends javax.swing.JDialog {
 
@@ -267,6 +262,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                 cursoDAO.atualizar(curso);
                 JOptionPane.showMessageDialog(this, "Curso Atualizado com sucesso!");
                 this.limparCampos();
+                this.btCadastrar.setEnabled(true);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
@@ -291,7 +287,16 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
     }//GEN-LAST:event_btConsultarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        // TODO add your handling code here:
+        if (curso != null) {
+            try {
+                cursoDAO.remover(curso.getId());
+                JOptionPane.showMessageDialog(this, "Curso Removido com sucesso!");
+                this.limparCampos();
+                this.btCadastrar.setEnabled(true);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btExcluirActionPerformed
     
     private void getDados() {
@@ -333,6 +338,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             this.tfEixoTecnologico.setText(curso.getEixoTecnologico());
             this.tfCargaHoraria.setText(curso.getCargaHoraria());
             this.chBStatus.setSelected(curso.isStatus());
+            this.btCadastrar.setEnabled(false);
         } catch (SQLException ex) {
             Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(Level.SEVERE, null, ex);
         }

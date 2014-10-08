@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author Familia
+ * @author Giseli e Keyve
  */
 public class Turma {
 

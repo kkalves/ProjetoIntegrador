@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
+
+import java.util.Date;
 
 /**
  *
- * @author Familia
+ * @author Giseli e Keyve
  */
 public class Orientador {
 
@@ -15,19 +12,43 @@ public class Orientador {
     private String nome;
     private String cpf;
     private String rg;
+    private String titulacao;
+    private Date dataEntrada;
     private String telefone;
     private String email;
+    private boolean status;
     private Endereco endereco;
     private ContaBancaria contaBancaria;
 
-    public Orientador(String nome, String cpf, String rg, String telefone, String email, Endereco endereco, ContaBancaria contaBancaria) {
+    public Orientador(int id, String nome, String cpf, String rg, String titulacao, Date dataEntrada, String telefone, String email, boolean status, Endereco endereco, ContaBancaria contaBancaria) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
+        this.titulacao = titulacao;
+        this.dataEntrada = dataEntrada;
         this.telefone = telefone;
         this.email = email;
+        this.status = status;
         this.endereco = endereco;
         this.contaBancaria = contaBancaria;
+
+    }
+
+    public Orientador(String nome, String cpf, String rg, String titulacao, Date dataEntrada, String telefone, String email, boolean status, Endereco endereco, ContaBancaria contaBancaria) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.titulacao = titulacao;
+        this.dataEntrada = dataEntrada;
+        this.telefone = telefone;
+        this.email = email;
+        this.status = status;
+        this.endereco = endereco;
+        this.contaBancaria = contaBancaria;
+    }
+
+    public Orientador() {
     }
 
     public int getId() {
@@ -62,6 +83,22 @@ public class Orientador {
         this.rg = rg;
     }
 
+    public String getTitulacao() {
+        return titulacao;
+    }
+
+    public void setTitulacao(String titulacao) {
+        this.titulacao = titulacao;
+    }
+
+    public Date getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -76,6 +113,14 @@ public class Orientador {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Endereco getEndereco() {
@@ -95,14 +140,9 @@ public class Orientador {
     }
 
     @Override
-    public String toString() {
-        return nome;
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + this.id;
+        int hash = 7;
+        hash = 79 * hash + this.id;
         return hash;
     }
 
@@ -119,6 +159,11 @@ public class Orientador {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 
 }

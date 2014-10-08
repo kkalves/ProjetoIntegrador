@@ -50,17 +50,15 @@ public class CursoDAO {
         System.out.println("Atualizado com sucesso!");
     }
 
-    public int remover(int id) throws SQLException {
+    public void remover(int id) throws SQLException {
         PreparedStatement pstm;
-        int result = 0;
-        String sqlRemover = "DELETE FROM curso WHERE id = ?;";
+        String sqlRemover = "DELETE FROM curso WHERE idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlRemover);
         pstm.setInt(1, id);
-        result = pstm.executeUpdate();
+        pstm.executeUpdate();
         pstm.close();
         DBConnection.close();
         System.out.println("Removido com sucesso!");
-        return result;
     }
 
     public Curso buscarPorNome(String nome) throws SQLException {
