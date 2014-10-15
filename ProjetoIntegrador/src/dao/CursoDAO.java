@@ -29,14 +29,14 @@ public class CursoDAO {
         pstm.executeUpdate();
         pstm.close();
         DBConnection.close();
-        System.out.println("Cadastrado com sucesso!");
         return true;
     }
 
     public void atualizar(Curso curso) throws SQLException {
         PreparedStatement pstm;
-        String sqlAtualizar = "UPDATE curso SET nome = ?, descricao = ?, eixoTecnologico = ?, cargaHoraria = ?, status = ?"
-                + " WHERE idCurso = ?;";
+        String sqlAtualizar = "UPDATE curso c SET c.nome = ?, c.descricao = ?, c.eixoTecnologico = ?,"
+                + " c.cargaHoraria = ?, c.status = ?"
+                + " WHERE c.idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlAtualizar);
         pstm.setString(1, curso.getNome());
         pstm.setString(2, curso.getDescricao());
@@ -47,56 +47,42 @@ public class CursoDAO {
         pstm.executeUpdate();
         pstm.close();
         DBConnection.close();
-        System.out.println("Atualizado com sucesso!");
     }
 
-    public void remover(int id) throws SQLException {
+    public void remover(Curso curso) throws SQLException {
         PreparedStatement pstm;
-        String sqlRemover = "DELETE FROM curso WHERE idCurso = ?;";
+        String sqlRemover = "DELETE FROM curso c WHERE c.idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlRemover);
-        pstm.setInt(1, id);
-        pstm.executeUpdate();
+        pstm.setInt(1, curso.getId());
+        pstm.execute();
         pstm.close();
         DBConnection.close();
-        System.out.println("Removido com sucesso!");
     }
 
     public Curso buscarPorNome(String nome) throws SQLException {
         PreparedStatement pstm;
         ResultSet rs;
-        String sqlBuscar = "SELECT * FROM curso WHERE nome LIKE '" + nome + "%';";
+        String sqlBuscar = "SELECT * FROM curso c WHERE nome LIKE '" + nome + "%';";
         pstm = DBConnection.getConnection().prepareStatement(sqlBuscar);
         rs = pstm.executeQuery();
+        Curso curso;
         while (rs.next()) {
-            Curso curso = new Curso(rs.getInt("idCurso"),
-                    rs.getString("nome"),
-                    rs.getString("descricao"),
-                    rs.getString("eixoTecnologico"),
-                    rs.getString("cargaHoraria"),
-                    rs.getBoolean("status"));
+            curso = transformarResultSet(rs);
             return curso;
         }
         return null;
     }
 
     public Curso buscarPorId(int idCurso) throws SQLException {
+        PreparedStatement pstm;
         String sqlCurso = "SELECT * FROM curso c WHERE c.idCurso = ?;";
-        PreparedStatement pstm = DBConnection.getConnection().prepareStatement(sqlCurso);
+        pstm = DBConnection.getConnection().prepareStatement(sqlCurso);
         pstm.setInt(1, idCurso);
-        // Executamos a instrução de consulta do registro
         pstm.execute();
-        // Colocamos o resultado da consulta em objeto específico
         ResultSet rs = pstm.getResultSet();
         Curso curso;
         if (rs.first()) {
-            curso = new Curso(
-                    rs.getInt("c.idCurso"),
-                    rs.getString("c.nome"),
-                    rs.getString("c.descricao"),
-                    rs.getString("c.eixoTecnologico"),
-                    rs.getString("c.cargaHoraria"),
-                    rs.getBoolean("c.status")
-            );
+            curso = transformarResultSet(rs);
             return curso;
         } else {
             return null;
@@ -107,16 +93,11 @@ public class CursoDAO {
         PreparedStatement pstm;
         List<Curso> cursos = new ArrayList<>();
         ResultSet rs;
-        String sqlListar = "SELECT * FROM curso ORDER BY nome;";
+        String sqlListar = "SELECT * FROM curso c ORDER BY c.nome;";
         pstm = DBConnection.getConnection().prepareStatement(sqlListar);
         rs = pstm.executeQuery();
         while (rs.next()) {
-            Curso curso = new Curso(rs.getInt("idCurso"),
-                    rs.getString("nome"),
-                    rs.getString("descricao"),
-                    rs.getString("eixoTecnologico"),
-                    rs.getString("cargaHoraria"),
-                    rs.getBoolean("status"));
+            Curso curso = transformarResultSet(rs);
             cursos.add(curso);
         }
         pstm.close();
@@ -124,29 +105,32 @@ public class CursoDAO {
         return cursos;
     }
 
+    public Curso transformarResultSet(ResultSet rs) throws SQLException {
+        Curso curso = new Curso(rs.getInt("c.idCurso"),
+                rs.getString("c.nome"),
+                rs.getString("c.descricao"),
+                rs.getString("c.eixoTecnologico"),
+                rs.getString("c.cargaHoraria"),
+                rs.getBoolean("c.status"));
+        return curso;
+    }
+
     public FormatoTabela consultarSQL(String sql) throws SQLException {
         PreparedStatement pstm = DBConnection.getConnection().prepareStatement(sql);
         pstm.execute();
-
         ResultSet rs = pstm.getResultSet();
         ResultSetMetaData rsmd = rs.getMetaData();
-
         FormatoTabela tabela = new FormatoTabela();
-
-        //Extrair o nome da coluna
-        //Extrair o nome da coluna
         int qtdColunas = rsmd.getColumnCount();
         for (int i = 1; i < qtdColunas; i++) {
             tabela.getCabecalho().add(rsmd.getColumnName(i));
         }
         String[] linha;
         while (rs.next()) {
-            //Inicializar o vetor linha
             linha = new String[qtdColunas];
             for (int i = 1; i <= qtdColunas; i++) {
                 linha[i - 1] = rs.getString(i);
             }
-            //Adiciona a linha ao dados a serem adicionados na tabela
             tabela.getDados().add(linha);
         }
         DBConnection.close();

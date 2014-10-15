@@ -6,11 +6,11 @@ import java.util.ArrayList;
  *
  * @author Giseli e Keyve
  */
-public class FormatoTabela {
+public class FormatoTabela{
     
-    ArrayList<String> cabecalho = new ArrayList<String>();;
+    ArrayList<String> cabecalho = new ArrayList<>();;
     
-    ArrayList<String[]> dados = new ArrayList<String[]>();
+    ArrayList<String[]> dados = new ArrayList<>();
     
     public FormatoTabela() {
     }

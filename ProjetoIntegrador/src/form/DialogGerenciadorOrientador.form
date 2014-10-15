@@ -301,7 +301,7 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Dados Bancarios">
                   <Font PropertyName="font" name="Arial" size="14" style="1"/>
-                  <Color PropertyName="color" blue="cc" green="99" red="0" type="rgb"/>
+                  <Color PropertyName="color" blue="ff" green="66" red="0" type="rgb"/>
                 </TitledBorder>
               </Border>
             </Property>

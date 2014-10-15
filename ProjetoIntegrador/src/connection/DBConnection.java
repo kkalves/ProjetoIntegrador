@@ -30,12 +30,10 @@ public class DBConnection {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         connection = DriverManager.getConnection(url, user, pass);
-        System.out.println("Conectou certinhooooooooo");
         return connection;
     }
 
     public static void close() throws SQLException {
-        System.out.println("Fechando conexão!");
         connection.close();
     }
 }
