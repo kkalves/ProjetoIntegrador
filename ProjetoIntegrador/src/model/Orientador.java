@@ -13,37 +13,36 @@ public class Orientador {
     private String cpf;
     private String rg;
     private String titulacao;
-    private Date dataEntrada;
     private String telefone;
     private String email;
     private boolean status;
+    private Date dataEntrada;
     private Endereco endereco;
     private ContaBancaria contaBancaria;
 
-    public Orientador(int id, String nome, String cpf, String rg, String titulacao, Date dataEntrada, String telefone, String email, boolean status, Endereco endereco, ContaBancaria contaBancaria) {
+    public Orientador(int id, String nome, String cpf, String rg, String titulacao, String telefone, String email, boolean status, Date dataEntrada, Endereco endereco, ContaBancaria contaBancaria) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.titulacao = titulacao;
-        this.dataEntrada = dataEntrada;
         this.telefone = telefone;
         this.email = email;
         this.status = status;
+        this.dataEntrada = dataEntrada;
         this.endereco = endereco;
         this.contaBancaria = contaBancaria;
-
     }
 
-    public Orientador(String nome, String cpf, String rg, String titulacao, Date dataEntrada, String telefone, String email, boolean status, Endereco endereco, ContaBancaria contaBancaria) {
+    public Orientador(String nome, String cpf, String rg, String titulacao, String telefone, String email, boolean status, Date dataEntrada, Endereco endereco, ContaBancaria contaBancaria) {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.titulacao = titulacao;
-        this.dataEntrada = dataEntrada;
         this.telefone = telefone;
         this.email = email;
         this.status = status;
+        this.dataEntrada = dataEntrada;
         this.endereco = endereco;
         this.contaBancaria = contaBancaria;
     }
@@ -91,14 +90,6 @@ public class Orientador {
         this.titulacao = titulacao;
     }
 
-    public Date getDataEntrada() {
-        return dataEntrada;
-    }
-
-    public void setDataEntrada(Date dataEntrada) {
-        this.dataEntrada = dataEntrada;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -123,6 +114,14 @@ public class Orientador {
         this.status = status;
     }
 
+    public Date getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
+    }
+
     public Endereco getEndereco() {
         return endereco;
     }
@@ -142,7 +141,7 @@ public class Orientador {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + this.id;
+        hash = 83 * hash + this.id;
         return hash;
     }
 
@@ -165,5 +164,5 @@ public class Orientador {
     public String toString() {
         return nome;
     }
-
+    
 }

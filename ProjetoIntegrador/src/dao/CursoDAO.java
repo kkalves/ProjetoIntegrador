@@ -3,12 +3,10 @@ package dao;
 import connection.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Curso;
-import table.FormatoTabela;
 
 /**
  *
@@ -51,10 +49,10 @@ public class CursoDAO {
 
     public void remover(Curso curso) throws SQLException {
         PreparedStatement pstm;
-        String sqlRemover = "DELETE FROM curso c WHERE c.idCurso = ?;";
+        String sqlRemover = "DELETE FROM curso WHERE idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlRemover);
         pstm.setInt(1, curso.getId());
-        pstm.execute();
+        pstm.executeUpdate();
         pstm.close();
         DBConnection.close();
     }
@@ -115,25 +113,16 @@ public class CursoDAO {
         return curso;
     }
 
-    public FormatoTabela consultarSQL(String sql) throws SQLException {
+    public List<Curso> consultarSQL(String sql) throws SQLException {
+        List<Curso> cursos = new ArrayList<>();
         PreparedStatement pstm = DBConnection.getConnection().prepareStatement(sql);
-        pstm.execute();
-        ResultSet rs = pstm.getResultSet();
-        ResultSetMetaData rsmd = rs.getMetaData();
-        FormatoTabela tabela = new FormatoTabela();
-        int qtdColunas = rsmd.getColumnCount();
-        for (int i = 1; i < qtdColunas; i++) {
-            tabela.getCabecalho().add(rsmd.getColumnName(i));
-        }
-        String[] linha;
+        ResultSet rs = pstm.executeQuery();
         while (rs.next()) {
-            linha = new String[qtdColunas];
-            for (int i = 1; i <= qtdColunas; i++) {
-                linha[i - 1] = rs.getString(i);
-            }
-            tabela.getDados().add(linha);
+            Curso curso = transformarResultSet(rs);
+            cursos.add(curso);
         }
+        pstm.close();
         DBConnection.close();
-        return tabela;
+        return cursos;
     }
 }

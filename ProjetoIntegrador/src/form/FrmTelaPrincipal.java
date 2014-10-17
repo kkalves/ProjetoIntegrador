@@ -1,14 +1,49 @@
 package form;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
+
 /**
  *
  * @author Giseli e Keyve
  */
-public class FrmTelaPrincipal extends javax.swing.JFrame {
+public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListener {
 
-    
     public FrmTelaPrincipal() {
+        setExtendedState(MAXIMIZED_BOTH);
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("simbolo.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
+        setIconImage(iconeTitulo);
+        timer = new Timer(500, this);
+        timer.setRepeats(true);
+        timer.start();
+        UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Arial", Font.PLAIN, 18)));
         initComponents();
+    }
+//    JLabel rotuloHorario = new JLabel();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy   "
+            + "HH:mm");
+    Timer timer;
+
+    @Override
+    public void actionPerformed(ActionEvent ae
+    ) {
+        if (ae.getSource().equals(timer)) {
+            this.lbRelogio.setText(sdf.format(new Date(System.currentTimeMillis())));
+            this.lbRelogio.setFont(new Font("Arial", Font.PLAIN, 24));
+            this.lbRelogio.setForeground(Color.BLACK);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -22,6 +57,8 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
         btGerenciadoOrientador = new javax.swing.JButton();
         btGerenciadorSupervisor = new javax.swing.JButton();
         btGerenciadorProfessor = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lbRelogio = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuGerenciadores = new javax.swing.JMenu();
         menuItemGerenciadorCurso = new javax.swing.JMenuItem();
@@ -35,10 +72,14 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SIGCUP - Sistema de Gerenciamento de Curso Profissionalizantes");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
 
         btGerenciadorCurso.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btGerenciadorCurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Book.png"))); // NOI18N
         btGerenciadorCurso.setText("Gerenciador De Curso");
+        btGerenciadorCurso.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
         btGerenciadorCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciadorCursoActionPerformed(evt);
@@ -48,14 +89,22 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
         btGerenciadoOrientador.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btGerenciadoOrientador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Manager.png"))); // NOI18N
         btGerenciadoOrientador.setText("Gerenciador De Orientador");
+        btGerenciadoOrientador.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
+        btGerenciadoOrientador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerenciadoOrientadorActionPerformed(evt);
+            }
+        });
 
         btGerenciadorSupervisor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btGerenciadorSupervisor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Supervisor.png"))); // NOI18N
         btGerenciadorSupervisor.setText("Gerenciador De Supervisor");
+        btGerenciadorSupervisor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
 
         btGerenciadorProfessor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btGerenciadorProfessor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Teacher.png"))); // NOI18N
         btGerenciadorProfessor.setText("Gerenciador De Professor");
+        btGerenciadorProfessor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,8 +130,20 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
                 .addComponent(btGerenciadorSupervisor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btGerenciadorProfessor)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logo.png"))); // NOI18N
+
+        lbRelogio.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lbRelogio.setText("Relógio");
+        lbRelogio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbRelogio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbRelogioMouseClicked(evt);
+            }
+        });
 
         menuGerenciadores.setText("Gerenciadores");
         menuGerenciadores.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -141,13 +202,27 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(784, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lbRelogio))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel1)))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                        .addComponent(lbRelogio)))
                 .addContainerGap())
         );
 
@@ -173,15 +248,24 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemGerenciadorSupervisorActionPerformed
 
+    private void lbRelogioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRelogioMouseClicked
+        JOptionPane.showMessageDialog(this, "Esperamos que o seu dia seja maravilhoso! \nEquipe: TecDom");
+    }//GEN-LAST:event_lbRelogioMouseClicked
+
+    private void btGerenciadoOrientadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciadoOrientadorActionPerformed
+        DlgGerenciadorOrientador gerenciadorOrientador = new DlgGerenciadorOrientador(this, true);
+        gerenciadorOrientador.setVisible(true);
+    }//GEN-LAST:event_btGerenciadoOrientadorActionPerformed
+
     public static void main(String args[]) {
-        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if ("Liquid".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -198,7 +282,6 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmTelaPrincipal().setVisible(true);
@@ -211,10 +294,12 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btGerenciadorCurso;
     private javax.swing.JButton btGerenciadorProfessor;
     private javax.swing.JButton btGerenciadorSupervisor;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel lbRelogio;
     private javax.swing.JMenu menuConsultas;
     private javax.swing.JMenu menuGerenciadores;
     private javax.swing.JMenuItem menuItemGerenciadorCurso;
@@ -223,4 +308,5 @@ public class FrmTelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGerenciadorSupervisor;
     private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
+
 }

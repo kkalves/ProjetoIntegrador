@@ -2,12 +2,11 @@ package model;
 
 /**
  *
- * @author Giseli e Keyve
+ * @author Familia
  */
 public class ContaBancaria {
 
     private int id;
-
     private String nomeBanco;
     private int agencia;
     private int numeroConta;
@@ -60,4 +59,26 @@ public class ContaBancaria {
         this.numeroConta = numeroConta;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ContaBancaria other = (ContaBancaria) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    
 }

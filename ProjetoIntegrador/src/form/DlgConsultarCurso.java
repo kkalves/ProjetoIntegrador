@@ -6,13 +6,16 @@
 package form;
 
 import dao.CursoDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import model.Curso;
-import table.FormatoTabela;
+import table.CursoCellRenderer;
+import table.CursoTableModel;
 
 /**
  *
@@ -20,28 +23,30 @@ import table.FormatoTabela;
  */
 public class DlgConsultarCurso extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DlgConsultar
-     */
+    CursoDAO cursoDAO = new CursoDAO();
+    List<Curso> listaCurso = new ArrayList<>();
+    
     public DlgConsultarCurso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("simbolo.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
+        setIconImage(iconeTitulo);
         initComponents();
-        atualizarDadosTabela("SELECT idCurso, nome, descricao, eixoTecnologico, cargaHoraria, status FROM Curso;");
+        if (listaCurso != null) {
+            atualizarTabela("SELECT idCurso, nome, descricao, eixoTecnologico, cargaHoraria, status "
+                    + "FROM Curso c;");
+        }
     }
-
-    CursoDAO cursoDAO;
-
-    private void atualizarDadosTabela(String sql) {
-
-        cursoDAO = new CursoDAO();
-        FormatoTabela dadosClientes;
+    
+    private void atualizarTabela(String sql) {
         try {
-            dadosClientes = cursoDAO.consultarSQL(sql);
-            this.tableCurso.setModel(
-                    new DefaultTableModel(dadosClientes.getRowData(), dadosClientes.getColumnData()));
+            listaCurso = cursoDAO.consultarSQL(sql);
+            if (listaCurso != null) {
+                tableCurso.setModel(new CursoTableModel(listaCurso));
+                tableCurso.setDefaultRenderer(Object.class, new CursoCellRenderer());
+            }
         } catch (SQLException ex) {
             System.out.println("Erro ao consultar clientes na base de dados");
-            Logger.getLogger(DlgConsultarCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -61,7 +66,8 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         btVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Consultar Curso");
 
         tableCurso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -203,7 +209,7 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
             Curso curso = cursoDAO.buscarPorNome(tfNome.getText());
             if (curso != null) {
                 JOptionPane.showMessageDialog(this, "O Curso foi encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
-                atualizarDadosTabela("SELECT idCurso, nome, descricao, eixoTecnologico, cargaHoraria, status "
+                atualizarTabela("SELECT idCurso, nome, descricao, eixoTecnologico, cargaHoraria, status "
                         + "FROM Curso c "
                         + "WHERE c.nome LIKE \"" + curso.getNome() + "%\";");
 
@@ -212,7 +218,6 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
             }
         } catch (SQLException ex) {
             System.out.println("Erro de SQL Buscar por nome!");
-            Logger.getLogger(DlgConsultarCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btBuscarActionPerformed
     DlgGerenciadorCurso janelaCurso;
@@ -222,8 +227,7 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Selecione um curso!");
             } else {
                 int linhaSelecionada = this.tableCurso.getSelectedRow();
-                int idCurso = Integer.parseInt((String) this.tableCurso.getValueAt(linhaSelecionada, 0));
-                System.out.println("ID DO CURSO = " + idCurso);
+                int idCurso = (int) this.tableCurso.getValueAt(linhaSelecionada, 0);
                 janelaCurso = new DlgGerenciadorCurso(null, true);
                 janelaCurso.recuperarDadosAlterarCurso(idCurso);
                 this.dispose();
@@ -233,27 +237,27 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
     }//GEN-LAST:event_tableCursoMouseClicked
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        JOptionPane.showMessageDialog(this, "A Operação foi cancelada!");
+//        JOptionPane.showMessageDialog(this, "A Operação foi encerrada!");
         janelaCurso = new DlgGerenciadorCurso(null, true);
         this.dispose();
         janelaCurso.setVisible(true);
     }//GEN-LAST:event_btVoltarActionPerformed
 
     private void btEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarActionPerformed
-         if (this.tableCurso.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(this, "Selecione um curso!");
-            } else {
-                int linhaSelecionada = this.tableCurso.getSelectedRow();
-                int idCurso = Integer.parseInt((String) this.tableCurso.getValueAt(linhaSelecionada, 0));
-                janelaCurso = new DlgGerenciadorCurso(null, true);
-                janelaCurso.recuperarDadosAlterarCurso(idCurso);
-                this.dispose();
-                janelaCurso.setVisible(true);
-            }
+        if (this.tableCurso.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um curso!");
+        } else {
+            int linhaSelecionada = this.tableCurso.getSelectedRow();
+            int idCurso = Integer.parseInt((String) this.tableCurso.getValueAt(linhaSelecionada, 0));
+            janelaCurso = new DlgGerenciadorCurso(null, true);
+            janelaCurso.recuperarDadosAlterarCurso(idCurso);
+            this.dispose();
+            janelaCurso.setVisible(true);
+        }
     }//GEN-LAST:event_btEnviarActionPerformed
 
     public static void main(String args[]) {
-        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -277,7 +281,6 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
 
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 DlgConsultarCurso dialog = new DlgConsultarCurso(new javax.swing.JFrame(), true);

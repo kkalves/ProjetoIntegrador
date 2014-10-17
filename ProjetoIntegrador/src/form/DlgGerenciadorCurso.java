@@ -1,6 +1,9 @@
 package form;
 
 import dao.CursoDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,6 +19,9 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
 
     public DlgGerenciadorCurso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        URL caminhoImagem = this.getClass().getClassLoader().getResource("simbolo.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
+        setIconImage(iconeTitulo);
         initComponents();
         this.taDescricao.setLineWrap(true);
         this.tratarControles(false);
@@ -51,9 +57,10 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gerenciador De Cursos");
         setIconImage(null);
 
-        panelPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Do Curso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 204))); // NOI18N
+        panelPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Do Curso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(0, 102, 204))); // NOI18N
 
         lbEixoTecnologico.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbEixoTecnologico.setText("Eixo Tecnológico:");
@@ -295,18 +302,6 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
     private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
         this.setVisible(false);
         telaConsulta.setVisible(true);
-//        try {
-//            String nome = JOptionPane.showInputDialog("Informe o nome que deseja pesquisar: ");
-//            curso = cursoDAO.buscarPorNome(nome);
-//            if (curso == null) {
-//                JOptionPane.showMessageDialog(null, "Curso Inexistente!");
-//            } else {
-//                this.setDados();
-//            }
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(this, ex.getMessage());
-//            Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }//GEN-LAST:event_btConsultarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -324,7 +319,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        JOptionPane.showMessageDialog(this, "A Operação foi cancelada!");
+        JOptionPane.showMessageDialog(this, "A Operação está sendo encerrada!");
         this.dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
 
