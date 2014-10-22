@@ -1,9 +1,6 @@
 package form;
 
 import dao.CursoDAO;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,14 +16,11 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
 
     public DlgGerenciadorCurso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        URL caminhoImagem = this.getClass().getClassLoader().getResource("simbolo.png");
-        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
-        setIconImage(iconeTitulo);
         initComponents();
         this.taDescricao.setLineWrap(true);
         this.tratarControles(false);
     }
-
+    DlgConsultarCurso telaConsulta = new DlgConsultarCurso(null, true);
     private CursoDAO cursoDAO = new CursoDAO();
     private Curso curso;
     List<Curso> cursoList;
@@ -56,7 +50,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         btCancelar = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Gerenciador De Cursos");
         setIconImage(null);
 
@@ -298,7 +292,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btAlterarActionPerformed
-    DlgConsultarCurso telaConsulta = new DlgConsultarCurso(null, true);
+
     private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
         this.setVisible(false);
         telaConsulta.setVisible(true);

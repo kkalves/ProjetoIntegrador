@@ -8,30 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ContaBancaria;
 import model.Endereco;
-import model.Orientador;
+import model.Professor;
 
 /**
  *
  * @author Giseli e Keyve
  */
-public class OrientadorDAO {
+public class ProfessorDAO {
 
-    public boolean cadastrar(Orientador orientador) throws SQLException {
-        int idEndereco = inserirEndereco(orientador);
-        int idContaBancaria = inserirContaBancaria(orientador);
+    public boolean cadastrar(Professor professor) throws SQLException {
+        int idEndereco = inserirEndereco(professor);
+        int idContaBancaria = inserirContaBancaria(professor);
         PreparedStatement pstm;
-        String sqlOrientador = "INSERT INTO orientador "
+        String sqlProfessor = "INSERT INTO professor "
                 + "(nome, cpf, rg, titulacao, telefone, email, dataEntrada, status, idEndereco, idContaBancaria)"
                 + " VALUES (?, ?, ?, ?, ?, ?,?,?, ?, ?);";
-        pstm = DBConnection.getConnection().prepareStatement(sqlOrientador);
-        pstm.setString(1, orientador.getNome());
-        pstm.setString(2, orientador.getCpf());
-        pstm.setString(3, orientador.getRg());
-        pstm.setString(4, orientador.getTitulacao());
-        pstm.setString(5, orientador.getTelefone());
-        pstm.setString(6, orientador.getEmail());
-        pstm.setDate(7, new java.sql.Date(orientador.getDataEntrada().getTime()));
-        pstm.setBoolean(8, orientador.isStatus());
+        pstm = DBConnection.getConnection().prepareStatement(sqlProfessor);
+        pstm.setString(1, professor.getNome());
+        pstm.setString(2, professor.getCpf());
+        pstm.setString(3, professor.getRg());
+        pstm.setString(4, professor.getTitulacao());
+        pstm.setString(5, professor.getTelefone());
+        pstm.setString(6, professor.getEmail());
+        pstm.setDate(7, new java.sql.Date(professor.getDataEntrada().getTime()));
+        pstm.setBoolean(8, professor.isStatus());
         pstm.setInt(9, idEndereco);
         pstm.setInt(10, idContaBancaria);
         pstm.execute();
@@ -40,16 +40,16 @@ public class OrientadorDAO {
         return true;
     }
 
-    private int inserirEndereco(Orientador orientador) throws SQLException {
+    private int inserirEndereco(Professor professor) throws SQLException {
         PreparedStatement pstm;
         String sqlEndereco = "INSERT INTO endereco (rua, numero, bairro, estado, cidade)"
                 + " VALUES (?, ?, ?, ?, ?);";
         pstm = DBConnection.getConnection().prepareStatement(sqlEndereco);
-        pstm.setString(1, orientador.getEndereco().getRua());
-        pstm.setInt(2, orientador.getEndereco().getNumero());
-        pstm.setString(3, orientador.getEndereco().getBairro());
-        pstm.setString(4, orientador.getEndereco().getEstado());
-        pstm.setString(5, orientador.getEndereco().getCidade());
+        pstm.setString(1, professor.getEndereco().getRua());
+        pstm.setInt(2, professor.getEndereco().getNumero());
+        pstm.setString(3, professor.getEndereco().getBairro());
+        pstm.setString(4, professor.getEndereco().getEstado());
+        pstm.setString(5, professor.getEndereco().getCidade());
         pstm.execute();
         ResultSet rs;
         int id = -1;
@@ -62,14 +62,14 @@ public class OrientadorDAO {
         return id;
     }
 
-    private int inserirContaBancaria(Orientador orientador) throws SQLException {
+    private int inserirContaBancaria(Professor professor) throws SQLException {
         PreparedStatement pstm;
         String sqlContaBancaria = "INSERT INTO contabancaria (nomeBanco, agencia, numero)"
                 + " VALUES (?, ?, ?);";
         pstm = DBConnection.getConnection().prepareStatement(sqlContaBancaria);
-        pstm.setString(1, orientador.getContaBancaria().getNomeBanco());
-        pstm.setInt(2, orientador.getContaBancaria().getAgencia());
-        pstm.setInt(3, orientador.getContaBancaria().getNumeroConta());
+        pstm.setString(1, professor.getContaBancaria().getNomeBanco());
+        pstm.setInt(2, professor.getContaBancaria().getAgencia());
+        pstm.setInt(3, professor.getContaBancaria().getNumeroConta());
         pstm.execute();
         ResultSet rs;
         int id = -1;
@@ -83,132 +83,132 @@ public class OrientadorDAO {
         return id;
     }
 
-    public void atualizar(Orientador orientador) throws SQLException {
+    public void atualizar(Professor professor) throws SQLException {
         PreparedStatement pstm;
         String sql;
-        sql = "UPDATE orientador o, endereco e, contabancaria cb SET o.nome = ?, o.cpf = ?, o.rg = ?, o.titulacao = ?, "
+        sql = "UPDATE professor o, endereco e, contabancaria cb SET o.nome = ?, o.cpf = ?, o.rg = ?, o.titulacao = ?, "
                 + "o.telefone = ?, o.email = ?, o.dataEntrada = ?, o.status = ?, "
                 + "e.rua = ?, e.numero = ?, e.bairro = ?, e.estado = ?, e.cidade = ?, "
                 + "cb.nomeBanco = ?, cb.agencia = ?, cb.numero = ? "
-                + "WHERE o.idOrientador = ? AND o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;";
+                + "WHERE o.idProfessor = ? AND o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;";
 
         pstm = DBConnection.getConnection().prepareStatement(sql);
-        pstm.setString(1, orientador.getNome());
-        pstm.setString(2, orientador.getCpf());
-        pstm.setString(3, orientador.getRg());
-        pstm.setString(4, orientador.getTitulacao());
-        pstm.setString(5, orientador.getTelefone());
-        pstm.setString(6, orientador.getEmail());
-        pstm.setDate(7, new java.sql.Date(orientador.getDataEntrada().getTime()));
-        pstm.setBoolean(8, orientador.isStatus());
+        pstm.setString(1, professor.getNome());
+        pstm.setString(2, professor.getCpf());
+        pstm.setString(3, professor.getRg());
+        pstm.setString(4, professor.getTitulacao());
+        pstm.setString(5, professor.getTelefone());
+        pstm.setString(6, professor.getEmail());
+        pstm.setDate(7, new java.sql.Date(professor.getDataEntrada().getTime()));
+        pstm.setBoolean(8, professor.isStatus());
 
-        pstm.setString(9, orientador.getEndereco().getRua());
-        pstm.setInt(10, orientador.getEndereco().getNumero());
-        pstm.setString(11, orientador.getEndereco().getBairro());
-        pstm.setString(12, orientador.getEndereco().getEstado());
-        pstm.setString(13, orientador.getEndereco().getCidade());
+        pstm.setString(9, professor.getEndereco().getRua());
+        pstm.setInt(10, professor.getEndereco().getNumero());
+        pstm.setString(11, professor.getEndereco().getBairro());
+        pstm.setString(12, professor.getEndereco().getEstado());
+        pstm.setString(13, professor.getEndereco().getCidade());
 
-        pstm.setString(14, orientador.getContaBancaria().getNomeBanco());
-        pstm.setInt(15, orientador.getContaBancaria().getAgencia());
-        pstm.setInt(16, orientador.getContaBancaria().getNumeroConta());
+        pstm.setString(14, professor.getContaBancaria().getNomeBanco());
+        pstm.setInt(15, professor.getContaBancaria().getAgencia());
+        pstm.setInt(16, professor.getContaBancaria().getNumeroConta());
 
-        pstm.setInt(17, orientador.getId());
+        pstm.setInt(17, professor.getId());
         pstm.execute();
 
         DBConnection.close();
     }
 
-    public void remover(Orientador orientador) throws SQLException {
+    public void remover(Professor professor) throws SQLException {
         PreparedStatement pstm;
-        String sql = "DELETE FROM orientador WHERE idOrientador = ?";
+        String sql = "DELETE FROM professor WHERE idProfessor = ?";
         pstm = DBConnection.getConnection().prepareStatement(sql);
-        pstm.setInt(1, orientador.getId());
+        pstm.setInt(1, professor.getId());
         pstm.execute();
         pstm.close();
         DBConnection.close();
     }
 
-    public Orientador buscarPorNome(String nome) throws SQLException {
+    public Professor buscarPorNome(String nome) throws SQLException {
         PreparedStatement pstm;
         ResultSet rs;
-        String sqlPesquisarPorNome = "SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
+        String sqlPesquisarPorNome = "SELECT * FROM Professor o, Endereco e, ContaBancaria cb "
                 + "WHERE o.Nome LIKE \"" + nome + "%\" "
                 + "AND o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;";
         pstm = DBConnection.getConnection().prepareStatement(sqlPesquisarPorNome);
         rs = pstm.executeQuery();
-        Orientador orientador;
+        Professor professor;
         while (rs.next()) {
-            orientador = transformarResultSet(rs);
-            return orientador;
+            professor = transformarResultSet(rs);
+            return professor;
         }
         return null;
     }
 
-    public Orientador buscarPorCpf(String cpf) throws SQLException {
+    public Professor buscarPorCpf(String cpf) throws SQLException {
         PreparedStatement pstm;
         ResultSet rs;
-        String sqlPesquisarPorCpf = "SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
+        String sqlPesquisarPorCpf = "SELECT * FROM Professor o, Endereco e, ContaBancaria cb "
                 + "WHERE o.cpf = \"" + cpf + "\" "
                 + "AND o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;";
         pstm = DBConnection.getConnection().prepareStatement(sqlPesquisarPorCpf);
         rs = pstm.executeQuery();
-        Orientador orientador;
+        Professor professor;
         while (rs.next()) {
-            orientador = transformarResultSet(rs);
-            return orientador;
+            professor = transformarResultSet(rs);
+            return professor;
         }
         return null;
     }
 
-    public Orientador buscarPorRg(String rg) throws SQLException {
+    public Professor buscarPorRg(String rg) throws SQLException {
         PreparedStatement pstm;
         ResultSet rs;
-        String sqlPesquisarPorRg = "SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
+        String sqlPesquisarPorRg = "SELECT * FROM Professor o, Endereco e, ContaBancaria cb "
                 + "WHERE o.rg = \"" + rg + "\" "
                 + "AND o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;";
         pstm = DBConnection.getConnection().prepareStatement(sqlPesquisarPorRg);
         rs = pstm.executeQuery();
-        Orientador orientador;
+        Professor professor;
         while (rs.next()) {
-            orientador = transformarResultSet(rs);
-            return orientador;
+            professor = transformarResultSet(rs);
+            return professor;
         }
         return null;
     }
 
-    public Orientador buscarPorId(int idOrientador) throws SQLException {
-        String sql = "SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
-                + "WHERE o.idOrientador = ? "
+    public Professor buscarPorId(int idProfessor) throws SQLException {
+        String sql = "SELECT * FROM Professor o, Endereco e, ContaBancaria cb "
+                + "WHERE o.idProfessor = ? "
                 + "AND o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;";
         PreparedStatement pstm = DBConnection.getConnection().prepareStatement(sql);
-        pstm.setInt(1, idOrientador);
+        pstm.setInt(1, idProfessor);
         pstm.execute();
         ResultSet rs = pstm.getResultSet();
-        Orientador orientador;
+        Professor professor;
         if (rs.first()) {
-            orientador = transformarResultSet(rs);
-            return orientador;
+            professor = transformarResultSet(rs);
+            return professor;
         } else {
             return null;
         }
     }
 
-    public List<Orientador> listarTodos() throws SQLException {
-        String sql = "SELECT * FROM orientador o, endereco e, contabancaria cb;";
-        List<Orientador> listaOrientador = new ArrayList<>();
+    public List<Professor> listarTodos() throws SQLException {
+        String sql = "SELECT * FROM professor o, endereco e, contabancaria cb;";
+        List<Professor> listaProfessor = new ArrayList<>();
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        Orientador orientador;
+        Professor professor;
         while (rs.next()) {
-            orientador = transformarResultSet(rs);
-            listaOrientador.add(orientador);
+            professor = transformarResultSet(rs);
+            listaProfessor.add(professor);
         }
-        return listaOrientador;
+        return listaProfessor;
     }
 
-    public Orientador transformarResultSet(ResultSet rs) throws SQLException {
-        Orientador orientador = new Orientador(
-                rs.getInt("o.idOrientador"),
+    public Professor transformarResultSet(ResultSet rs) throws SQLException {
+        Professor professor = new Professor(
+                rs.getInt("o.idProfessor"),
                 rs.getString("o.nome"),
                 rs.getString("o.cpf"),
                 rs.getString("o.rg"),
@@ -232,17 +232,17 @@ public class OrientadorDAO {
                         rs.getInt("cb.numero")
                 )
         );
-        return orientador;
+        return professor;
     }
 
-    public List<Orientador> consultarSQL(String sql) throws SQLException {
+    public List<Professor> consultarSQL(String sql) throws SQLException {
         PreparedStatement pstm;
-        List<Orientador> orientadores = new ArrayList<>();
+        List<Professor> professores = new ArrayList<>();
         pstm = DBConnection.getConnection().prepareStatement(sql);
         ResultSet rs = pstm.executeQuery();
         while (rs.next()) {
-            Orientador orientador = new Orientador(
-                    rs.getInt("o.idOrientador"),
+            Professor professor = new Professor(
+                    rs.getInt("o.idProfessor"),
                     rs.getString("o.nome"),
                     rs.getString("o.cpf"),
                     rs.getString("o.rg"),
@@ -266,10 +266,10 @@ public class OrientadorDAO {
                             rs.getInt("cb.numero")
                     )
             );
-            orientadores.add(orientador);
+            professores.add(professor);
         }
         pstm.close();
         DBConnection.close();
-        return orientadores;
+        return professores;
     }
 }

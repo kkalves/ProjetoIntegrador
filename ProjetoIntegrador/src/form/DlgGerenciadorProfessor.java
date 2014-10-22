@@ -1,6 +1,6 @@
 package form;
 
-import dao.OrientadorDAO;
+import dao.ProfessorDAO;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,21 +9,21 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import model.ContaBancaria;
 import model.Endereco;
-import model.Orientador;
+import model.Professor;
 
 /**
  *
  * @author Giseli e Keyve
  */
-public class DlgGerenciadorOrientador extends javax.swing.JDialog {
+public class DlgGerenciadorProfessor extends javax.swing.JDialog {
 
-    public DlgGerenciadorOrientador(java.awt.Frame parent, boolean modal) {
+    public DlgGerenciadorProfessor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    DlgConsultarOrientador janelaConsulta = new DlgConsultarOrientador(null, true);
-    private OrientadorDAO orientadorDAO = new OrientadorDAO();
-    private Orientador orientador;
+    DlgConsultarProfessor janelaConsulta = new DlgConsultarProfessor(null, true);
+    private ProfessorDAO professorDAO = new ProfessorDAO();
+    private Professor professor;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -74,9 +74,9 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         btCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Gerenciador de Orientadores");
+        setTitle("Gerenciador de Professor");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Orientador", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(0, 102, 204))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Professor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(0, 102, 204))); // NOI18N
         jPanel1.setToolTipText("");
 
         lbNome.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -459,15 +459,15 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         try {
-            if (orientador == null) {
-                orientador = new Orientador();
+            if (professor == null) {
+                professor = new Professor();
                 this.getDados();
-                if (orientadorDAO.cadastrar(orientador)) {
-                    JOptionPane.showMessageDialog(this, "Orientador inserido com sucesso!!");
+                if (professorDAO.cadastrar(professor)) {
+                    JOptionPane.showMessageDialog(this, "Professor inserido com sucesso!!");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Já existe orientador cadastrado!",
-                            "Cadastro de  Orientador", JOptionPane.ERROR_MESSAGE);
-                    orientador = null;
+                    JOptionPane.showMessageDialog(this, "Já existe professor cadastrado!",
+                            "Cadastro de  Professor", JOptionPane.ERROR_MESSAGE);
+                    professor = null;
                 }
             }
         } catch (SQLException ex) {
@@ -494,11 +494,11 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
     }//GEN-LAST:event_btConsultarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        if (orientador != null) {
+        if (professor != null) {
             try {
                 this.getDados();
-                orientadorDAO.atualizar(orientador);
-                JOptionPane.showMessageDialog(this, "Orientador atualizado com sucesso!!");
+                professorDAO.atualizar(professor);
+                JOptionPane.showMessageDialog(this, "Professor atualizado com sucesso!!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO!: " + ex.getMessage());
             } catch (ParseException | IllegalArgumentException ex) {
@@ -511,9 +511,9 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        if (orientador != null) {
+        if (professor != null) {
             try {
-                orientadorDAO.remover(orientador);
+                professorDAO.remover(professor);
                 JOptionPane.showMessageDialog(this, "Curso Removido com sucesso!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
@@ -536,59 +536,59 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
 
     private void setDados() {
         MaskFormatter mf = null;
-        this.tfNome.setText(orientador.getNome());
-        this.jChStatus.setSelected(orientador.isStatus());
+        this.tfNome.setText(professor.getNome());
+        this.jChStatus.setSelected(professor.isStatus());
         try {
             mf = new MaskFormatter("###.###.###-##");
         } catch (ParseException ex) {
             System.out.println("ERRO: " + ex.getMessage());
         }
-        mf.setPlaceholder(orientador.getCpf());
+        mf.setPlaceholder(professor.getCpf());
         this.ftfCpf.setText(new DefaultFormatterFactory(mf).toString());
         try {
             mf = new MaskFormatter("#.###.###");
         } catch (ParseException ex) {
             System.out.println("ERRO: " + ex.getMessage());
         }
-        mf.setPlaceholder(orientador.getRg());
+        mf.setPlaceholder(professor.getRg());
         this.ftfRg.setText(new DefaultFormatterFactory(mf).toString());
-        this.cbTitulacao.setSelectedItem(orientador.getTitulacao());
-        this.dtcDataEntrada.setDateFormatString(df.format(orientador.getDataEntrada()));
+        this.cbTitulacao.setSelectedItem(professor.getTitulacao());
+        this.dtcDataEntrada.setDateFormatString(df.format(professor.getDataEntrada()));
         try {
             mf = new MaskFormatter("(##)####-####");
         } catch (ParseException ex) {
             System.out.println("ERRO: " + ex.getMessage());
         }
-        mf.setPlaceholder(orientador.getTelefone());
+        mf.setPlaceholder(professor.getTelefone());
         this.ftfTelefone.setText(new DefaultFormatterFactory(mf).toString());
-        this.tfEmail.setText(orientador.getEmail());
-        this.cbEstado.setSelectedItem(orientador.getEndereco().getEstado());
-        this.tfCidade.setText(orientador.getEndereco().getCidade());
-        this.tfBairro.setText(orientador.getEndereco().getBairro());
-        this.tfRua.setText(orientador.getEndereco().getRua());
-        this.tfNumero.setText(Long.toString(orientador.getEndereco().getNumero()));
-        this.tfBanco.setText(orientador.getContaBancaria().getNomeBanco());
-        this.tfAgencia.setText(Integer.toString(orientador.getContaBancaria().getAgencia()));
-        this.tfConta.setText(Integer.toString(orientador.getContaBancaria().getNumeroConta()));
+        this.tfEmail.setText(professor.getEmail());
+        this.cbEstado.setSelectedItem(professor.getEndereco().getEstado());
+        this.tfCidade.setText(professor.getEndereco().getCidade());
+        this.tfBairro.setText(professor.getEndereco().getBairro());
+        this.tfRua.setText(professor.getEndereco().getRua());
+        this.tfNumero.setText(Long.toString(professor.getEndereco().getNumero()));
+        this.tfBanco.setText(professor.getContaBancaria().getNomeBanco());
+        this.tfAgencia.setText(Integer.toString(professor.getContaBancaria().getAgencia()));
+        this.tfConta.setText(Integer.toString(professor.getContaBancaria().getNumeroConta()));
 
     }
     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
     private void getDados() throws ParseException {
         if (!tfNome.getText().isEmpty()) {
-            orientador.setNome(tfNome.getText());
-            if (orientador.isCPF(this.ftfCpf.getText())) {
-                orientador.setCpf(ftfCpf.getText());
+            professor.setNome(tfNome.getText());
+            if (professor.isCPF(this.ftfCpf.getText())) {
+                professor.setCpf(ftfCpf.getText());
             } else {
                 throw new IllegalArgumentException("CPF Inválido");
             }
-            orientador.setRg(ftfRg.getText());
-            orientador.setDataEntrada(dtcDataEntrada.getDate());
-            orientador.setTitulacao(cbTitulacao.getSelectedItem().toString());
-            orientador.setStatus(jChStatus.isSelected());
-            orientador.setTelefone(ftfTelefone.getText());
-            orientador.setEmail(tfEmail.getText());
-            orientador.setEndereco(
+            professor.setRg(ftfRg.getText());
+            professor.setDataEntrada(dtcDataEntrada.getDate());
+            professor.setTitulacao(cbTitulacao.getSelectedItem().toString());
+            professor.setStatus(jChStatus.isSelected());
+            professor.setTelefone(ftfTelefone.getText());
+            professor.setEmail(tfEmail.getText());
+            professor.setEndereco(
                     new Endereco(
                             tfRua.getText(),
                             Integer.parseInt(tfNumero.getText()),
@@ -597,7 +597,7 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                             tfCidade.getText()
                     )
             );
-            orientador.setContaBancaria(
+            professor.setContaBancaria(
                     new ContaBancaria(
                             tfBanco.getText(),
                             Integer.parseInt(tfAgencia.getText()),
@@ -649,9 +649,9 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         this.cbEstado.setSelectedIndex(-1);
     }
 
-    public void recuperarDadosAlterarOrientador(int idOrientador) {
+    public void recuperarDadosAlterarProfessor(int idProfessor) {
         try {
-            orientador = orientadorDAO.buscarPorId(idOrientador);
+            professor = professorDAO.buscarPorId(idProfessor);
             this.setDados();
             this.tratarControles(true);
         } catch (SQLException ex) {
@@ -676,20 +676,20 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultarProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultarProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultarProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultarProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DlgGerenciadorOrientador dialog = new DlgGerenciadorOrientador(new javax.swing.JFrame(), true);
+                DlgGerenciadorProfessor dialog = new DlgGerenciadorProfessor(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

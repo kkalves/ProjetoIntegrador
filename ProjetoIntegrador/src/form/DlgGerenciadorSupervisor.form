@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="Gerenciador de Orientadores"/>
+    <Property name="title" type="java.lang.String" value="Gerenciador de Supervisores"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -58,7 +58,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder justification="2" position="2" title="Dados Orientador">
+            <TitledBorder justification="2" position="2" title="Dados Supervisor">
               <Font PropertyName="font" name="Arial" size="18" style="1"/>
               <Color PropertyName="color" blue="cc" green="66" red="0" type="rgb"/>
             </TitledBorder>

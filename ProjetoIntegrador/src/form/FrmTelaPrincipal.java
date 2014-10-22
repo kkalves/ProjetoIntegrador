@@ -2,11 +2,8 @@ package form;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -22,16 +19,12 @@ public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListen
 
     public FrmTelaPrincipal() {
         setExtendedState(MAXIMIZED_BOTH);
-        URL caminhoImagem = this.getClass().getClassLoader().getResource("simbolo.png");
-        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoImagem);
-        setIconImage(iconeTitulo);
         timer = new Timer(500, this);
         timer.setRepeats(true);
         timer.start();
         UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Arial", Font.PLAIN, 18)));
         initComponents();
     }
-//    JLabel rotuloHorario = new JLabel();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy   "
             + "HH:mm");
     Timer timer;
@@ -79,7 +72,6 @@ public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListen
         btGerenciadorCurso.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btGerenciadorCurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Book.png"))); // NOI18N
         btGerenciadorCurso.setText("Gerenciador De Curso");
-        btGerenciadorCurso.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
         btGerenciadorCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciadorCursoActionPerformed(evt);
@@ -89,7 +81,6 @@ public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListen
         btGerenciadoOrientador.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btGerenciadoOrientador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Manager.png"))); // NOI18N
         btGerenciadoOrientador.setText("Gerenciador De Orientador");
-        btGerenciadoOrientador.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
         btGerenciadoOrientador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciadoOrientadorActionPerformed(evt);
@@ -99,12 +90,20 @@ public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListen
         btGerenciadorSupervisor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btGerenciadorSupervisor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Supervisor.png"))); // NOI18N
         btGerenciadorSupervisor.setText("Gerenciador De Supervisor");
-        btGerenciadorSupervisor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
+        btGerenciadorSupervisor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerenciadorSupervisorActionPerformed(evt);
+            }
+        });
 
         btGerenciadorProfessor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btGerenciadorProfessor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Teacher.png"))); // NOI18N
         btGerenciadorProfessor.setText("Gerenciador De Professor");
-        btGerenciadorProfessor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
+        btGerenciadorProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerenciadorProfessorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,6 +160,11 @@ public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListen
         menuItemGerenciadorOrientador.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGerenciadorOrientador.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         menuItemGerenciadorOrientador.setText("Gerenciador De Orientador");
+        menuItemGerenciadorOrientador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGerenciadorOrientadorActionPerformed(evt);
+            }
+        });
         menuGerenciadores.add(menuItemGerenciadorOrientador);
 
         menuItemGerenciadorSupervisor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
@@ -176,6 +180,11 @@ public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListen
         menuItemGerenciadorProfessor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGerenciadorProfessor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         menuItemGerenciadorProfessor.setText("Gerenciador De Professor");
+        menuItemGerenciadorProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGerenciadorProfessorActionPerformed(evt);
+            }
+        });
         menuGerenciadores.add(menuItemGerenciadorProfessor);
 
         jMenuBar1.add(menuGerenciadores);
@@ -209,7 +218,7 @@ public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListen
                     .addGroup(layout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(jLabel1)))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,17 +254,39 @@ public class FrmTelaPrincipal extends javax.swing.JFrame implements ActionListen
     }//GEN-LAST:event_menuSairActionPerformed
 
     private void menuItemGerenciadorSupervisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciadorSupervisorActionPerformed
-        // TODO add your handling code here:
+        DlgGerenciadorSupervisor gerenciadorSupervisor = new DlgGerenciadorSupervisor(this, true);
+        gerenciadorSupervisor.setVisible(true);
     }//GEN-LAST:event_menuItemGerenciadorSupervisorActionPerformed
 
     private void lbRelogioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRelogioMouseClicked
-        JOptionPane.showMessageDialog(this, "Esperamos que o seu dia seja maravilhoso! \nEquipe: TecDom");
+        JOptionPane.showMessageDialog(this, "Nós da empresa TecDOM queremos lhe desejar um maravilhoso dia."
+                + "\n\nTecDom - Tecnologia de Dominio");
     }//GEN-LAST:event_lbRelogioMouseClicked
 
     private void btGerenciadoOrientadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciadoOrientadorActionPerformed
         DlgGerenciadorOrientador gerenciadorOrientador = new DlgGerenciadorOrientador(this, true);
         gerenciadorOrientador.setVisible(true);
     }//GEN-LAST:event_btGerenciadoOrientadorActionPerformed
+
+    private void menuItemGerenciadorOrientadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciadorOrientadorActionPerformed
+        DlgGerenciadorOrientador gerenciadorOrientador = new DlgGerenciadorOrientador(this, true);
+        gerenciadorOrientador.setVisible(true);
+    }//GEN-LAST:event_menuItemGerenciadorOrientadorActionPerformed
+
+    private void btGerenciadorSupervisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciadorSupervisorActionPerformed
+        DlgGerenciadorSupervisor gerenciadorSupervisor = new DlgGerenciadorSupervisor(this, true);
+        gerenciadorSupervisor.setVisible(true);
+    }//GEN-LAST:event_btGerenciadorSupervisorActionPerformed
+
+    private void menuItemGerenciadorProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciadorProfessorActionPerformed
+        DlgGerenciadorProfessor gerenciadorProfessor = new DlgGerenciadorProfessor(this, true);
+        gerenciadorProfessor.setVisible(true);
+    }//GEN-LAST:event_menuItemGerenciadorProfessorActionPerformed
+
+    private void btGerenciadorProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciadorProfessorActionPerformed
+        DlgGerenciadorProfessor gerenciadorProfessor = new DlgGerenciadorProfessor(this, true);
+        gerenciadorProfessor.setVisible(true);
+    }//GEN-LAST:event_btGerenciadorProfessorActionPerformed
 
     public static void main(String args[]) {
 

@@ -1,9 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
+
+import java.util.Date;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -15,21 +13,50 @@ public class Professor {
     private String nome;
     private String cpf;
     private String rg;
+    private String titulacao;
     private String telefone;
     private String email;
-    private String numeroSiape;
+    private boolean status;
+    private Date dataEntrada;
     private Endereco endereco;
     private ContaBancaria contaBancaria;
 
-    public Professor(String nome, String cpf, String rg, String telefone, String email, String numeroSiape, Endereco endereco, ContaBancaria contaBancaria) {
+    public Professor(int id, String nome, String cpf, String rg, String titulacao, String telefone, String email, boolean status, Date dataEntrada, Endereco endereco, ContaBancaria contaBancaria) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
+        this.titulacao = titulacao;
         this.telefone = telefone;
         this.email = email;
-        this.numeroSiape = numeroSiape;
+        this.status = status;
+        this.dataEntrada = dataEntrada;
         this.endereco = endereco;
         this.contaBancaria = contaBancaria;
+    }
+
+    public Professor(String nome, String cpf, String rg, String titulacao, String telefone, String email, boolean status, Date dataEntrada, Endereco endereco, ContaBancaria contaBancaria) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.titulacao = titulacao;
+        this.telefone = telefone;
+        this.email = email;
+        this.status = status;
+        this.dataEntrada = dataEntrada;
+        this.endereco = endereco;
+        this.contaBancaria = contaBancaria;
+    }
+
+    public Professor() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -56,6 +83,14 @@ public class Professor {
         this.rg = rg;
     }
 
+    public String getTitulacao() {
+        return titulacao;
+    }
+
+    public void setTitulacao(String titulacao) {
+        this.titulacao = titulacao;
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -72,12 +107,20 @@ public class Professor {
         this.email = email;
     }
 
-    public String getNumeroSiape() {
-        return numeroSiape;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setNumeroSiape(String numeroSiape) {
-        this.numeroSiape = numeroSiape;
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Date getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
     public Endereco getEndereco() {
@@ -96,22 +139,9 @@ public class Professor {
         this.contaBancaria = contaBancaria;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return nome;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 17 * hash + this.id;
         return hash;
     }
@@ -131,4 +161,56 @@ public class Professor {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
+
+    public boolean isCPF(String CPF) {
+        if (CPF.equals("00000000000") || CPF.equals("11111111111")
+                || CPF.equals("22222222222") || CPF.equals("33333333333")
+                || CPF.equals("44444444444") || CPF.equals("55555555555")
+                || CPF.equals("66666666666") || CPF.equals("77777777777")
+                || CPF.equals("88888888888") || CPF.equals("99999999999")
+                || (CPF.length() != 11)) {
+            return false;
+        }
+        char dig10, dig11;
+        int sm, i, r, num, peso;
+        try {
+            sm = 0;
+            peso = 10;
+            for (i = 0; i < 9; i++) {
+                num = (int) (CPF.charAt(i) - 48);
+                sm = sm + (num * peso);
+                peso = peso - 1;
+            }
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11)) {
+                dig10 = '0';
+            } else {
+                dig10 = (char) (r + 48);
+                sm = 0;
+                peso = 11;
+                for (i = 0; i < 10; i++) {
+                    num = (int) (CPF.charAt(i) - 48);
+                    sm = sm + (num * peso);
+                    peso = peso - 1;
+                }
+            }
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11)) {
+                dig11 = '0';
+            } else {
+                dig11 = (char) (r + 48);
+            }
+            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (InputMismatchException erro) {
+            return false;
+        }
+    }
 }
