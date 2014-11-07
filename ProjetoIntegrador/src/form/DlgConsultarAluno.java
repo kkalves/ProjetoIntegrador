@@ -1,37 +1,37 @@
 package form;
 
-import dao.OrientadorDAO;
+import dao.AlunoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.Orientador;
-import table.OrientadorTableModel;
+import model.Aluno;
+import table.AlunoTableModel;
 
 /**
  *
  * @author Giseli E Keyve
  */
-public class DlgConsultarOrientador extends javax.swing.JDialog {
+public class DlgConsultarAluno extends javax.swing.JDialog {
 
-    public DlgConsultarOrientador(java.awt.Frame parent, boolean modal) {
+    public DlgConsultarAluno(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        if (listaOrientador != null) {
-            atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
+        if (listaAluno != null) {
+            atualizarTabela("SELECT * FROM Aluno o, Endereco e, ContaBancaria cb "
                     + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
         }
     }
-    DlgGerenciadorOrientador janelaOrientador;
-    OrientadorDAO orientadorDAO = new OrientadorDAO();
-    List<Orientador> listaOrientador = new ArrayList<>();
-    Orientador orientador;
+    DlgGerenciadorAluno janelaAluno;
+    AlunoDAO alunoDAO = new AlunoDAO();
+    List<Aluno> listaAluno = new ArrayList<>();
+    Aluno aluno;
 
     public void atualizarTabela(String sql) {
         try {
-            listaOrientador = orientadorDAO.consultarSQL(sql);
-            if (listaOrientador != null) {
-                tableOrientador.setModel(new OrientadorTableModel(listaOrientador));
+            listaAluno = alunoDAO.consultarSQL(sql);
+            if (listaAluno != null) {
+                tableAluno.setModel(new AlunoTableModel(listaAluno));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -52,7 +52,7 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
         btBuscarPorRG = new javax.swing.JButton();
         tfRg = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableOrientador = new javax.swing.JTable();
+        tableAluno = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btEnviar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -60,7 +60,7 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
         btCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Consultar Orientador");
+        setTitle("Consultar Aluno");
 
         lbNome.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbNome.setText("Nome:");
@@ -104,8 +104,8 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
 
         tfRg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        tableOrientador.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tableOrientador.setModel(new javax.swing.table.DefaultTableModel(
+        tableAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tableAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -121,19 +121,19 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tableOrientador.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableAluno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableOrientadorMouseClicked(evt);
+                tableAlunoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tableOrientador);
-        if (tableOrientador.getColumnModel().getColumnCount() > 0) {
-            tableOrientador.getColumnModel().getColumn(0).setResizable(false);
-            tableOrientador.getColumnModel().getColumn(1).setResizable(false);
-            tableOrientador.getColumnModel().getColumn(2).setResizable(false);
-            tableOrientador.getColumnModel().getColumn(3).setResizable(false);
-            tableOrientador.getColumnModel().getColumn(4).setResizable(false);
-            tableOrientador.getColumnModel().getColumn(5).setResizable(false);
+        jScrollPane1.setViewportView(tableAluno);
+        if (tableAluno.getColumnModel().getColumnCount() > 0) {
+            tableAluno.getColumnModel().getColumn(0).setResizable(false);
+            tableAluno.getColumnModel().getColumn(1).setResizable(false);
+            tableAluno.getColumnModel().getColumn(2).setResizable(false);
+            tableAluno.getColumnModel().getColumn(3).setResizable(false);
+            tableAluno.getColumnModel().getColumn(4).setResizable(false);
+            tableAluno.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
@@ -236,50 +236,50 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarActionPerformed
-        if (this.tableOrientador.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "É nescessário selecionar um orientador na tabela!");
+        if (this.tableAluno.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "É nescessário selecionar um aluno na tabela!");
         } else {
-            int linhaSelecionada = this.tableOrientador.getSelectedRow();
-            int idOrientador = Integer.parseInt((String) this.tableOrientador.getValueAt(linhaSelecionada, 0));
-            janelaOrientador = new DlgGerenciadorOrientador(null, true);
-            janelaOrientador.recuperarDadosAlterarOrientador(idOrientador);
+            int linhaSelecionada = this.tableAluno.getSelectedRow();
+            int idAluno = Integer.parseInt((String) this.tableAluno.getValueAt(linhaSelecionada, 0));
+            janelaAluno = new DlgGerenciadorAluno(null, true);
+            janelaAluno.recuperarDadosAlterarAluno(idAluno);
             this.dispose();
-            janelaOrientador.setVisible(true);
+            janelaAluno.setVisible(true);
         }
     }//GEN-LAST:event_btEnviarActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        janelaOrientador = new DlgGerenciadorOrientador(null, true);
+        janelaAluno = new DlgGerenciadorAluno(null, true);
         this.dispose();
-        janelaOrientador.setVisible(true);
+        janelaAluno.setVisible(true);
     }//GEN-LAST:event_btVoltarActionPerformed
 
-    private void tableOrientadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableOrientadorMouseClicked
+    private void tableAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAlunoMouseClicked
         if (evt.getClickCount() == 2) {
-            if (this.tableOrientador.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(this, "É nescessário selecionar um orientador na tabela!");
+            if (this.tableAluno.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(this, "É nescessário selecionar um aluno na tabela!");
             } else {
-                int linhaSelecionada = this.tableOrientador.getSelectedRow();
-                int idOrientador = (int) this.tableOrientador.getValueAt(linhaSelecionada, 0);
-                janelaOrientador = new DlgGerenciadorOrientador(null, true);
-                janelaOrientador.recuperarDadosAlterarOrientador(idOrientador);
+                int linhaSelecionada = this.tableAluno.getSelectedRow();
+                int idAluno = (int) this.tableAluno.getValueAt(linhaSelecionada, 0);
+                janelaAluno = new DlgGerenciadorAluno(null, true);
+                janelaAluno.recuperarDadosAlterarAluno(idAluno);
                 this.dispose();
-                janelaOrientador.setVisible(true);
+                janelaAluno.setVisible(true);
             }
         }
-    }//GEN-LAST:event_tableOrientadorMouseClicked
+    }//GEN-LAST:event_tableAlunoMouseClicked
 
     private void btBuscarPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarPorNomeActionPerformed
         try {
-            orientador = orientadorDAO.buscarPorNome(tfNome.getText());
+            aluno = alunoDAO.buscarPorNome(tfNome.getText());
             this.limparCampos();
-            if (orientador != null) {
-                atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
-                        + "WHERE o.nome LIKE \"" + orientador.getNome() + "%\" AND "
+            if (aluno != null) {
+                atualizarTabela("SELECT * FROM Aluno o, Endereco e, ContaBancaria cb "
+                        + "WHERE o.nome LIKE \"" + aluno.getNome() + "%\" AND "
                         + "o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
 
             } else {
-                JOptionPane.showMessageDialog(this, "O orientador não foi encontrado!", "Informação",
+                JOptionPane.showMessageDialog(this, "O aluno não foi encontrado!", "Informação",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
@@ -289,15 +289,15 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
 
     private void btBuscarPorCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarPorCpfActionPerformed
         try {
-            orientador = orientadorDAO.buscarPorCpf(tfCpf.getText());
+            aluno = alunoDAO.buscarPorCpf(tfCpf.getText());
             this.limparCampos();
-            if (orientador != null) {
-                atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
-                        + "WHERE o.cpf = " + orientador.getCpf() + " AND "
+            if (aluno != null) {
+                atualizarTabela("SELECT * FROM Aluno o, Endereco e, ContaBancaria cb "
+                        + "WHERE o.cpf = " + aluno.getCpf() + " AND "
                         + "o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
 
             } else {
-                JOptionPane.showMessageDialog(this, "O orientador não foi encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "O aluno não foi encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -306,15 +306,15 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
 
     private void btBuscarPorRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarPorRGActionPerformed
         try {
-            orientador = orientadorDAO.buscarPorRg(tfRg.getText());
+            aluno = alunoDAO.buscarPorRg(tfRg.getText());
             this.limparCampos();
-            if (orientador != null) {
-                atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
-                        + "WHERE o.rg = " + orientador.getRg() + " AND "
+            if (aluno != null) {
+                atualizarTabela("SELECT * FROM Aluno o, Endereco e, ContaBancaria cb "
+                        + "WHERE o.rg = " + aluno.getRg() + " AND "
                         + "o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
 
             } else {
-                JOptionPane.showMessageDialog(this, "O orientador não foi encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "O aluno não foi encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -323,7 +323,7 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         this.limparCampos();
-        this.atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
+        this.atualizarTabela("SELECT * FROM Aluno o, Endereco e, ContaBancaria cb "
                 + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
     }//GEN-LAST:event_btCancelarActionPerformed
 
@@ -347,19 +347,20 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgConsultarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DlgConsultarOrientador dialog = new DlgConsultarOrientador(new javax.swing.JFrame(), true);
+                DlgConsultarAluno dialog = new DlgConsultarAluno(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -384,7 +385,7 @@ public class DlgConsultarOrientador extends javax.swing.JDialog {
     private javax.swing.JLabel lbCpf;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbRg;
-    private javax.swing.JTable tableOrientador;
+    private javax.swing.JTable tableAluno;
     private javax.swing.JTextField tfCpf;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfRg;

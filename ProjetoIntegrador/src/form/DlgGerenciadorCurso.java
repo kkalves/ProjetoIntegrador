@@ -21,7 +21,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         this.tratarControles(false);
     }
     DlgConsultarCurso telaConsulta = new DlgConsultarCurso(null, true);
-    private CursoDAO cursoDAO = new CursoDAO();
+    private final CursoDAO cursoDAO = new CursoDAO();
     private Curso curso;
     List<Curso> cursoList;
     int idCurso;
@@ -48,9 +48,8 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
-        btVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciador De Cursos");
         setIconImage(null);
 
@@ -211,27 +210,15 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         });
         panelButtons.add(btCancelar);
 
-        btVoltar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/back.png"))); // NOI18N
-        btVoltar.setText("Voltar");
-        btVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btVoltarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
-                        .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                    .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -241,8 +228,6 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                 .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btVoltar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -264,7 +249,8 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                 curso = new Curso();
                 this.getDados();
                 if (cursoDAO.cadastrar(curso)) {
-                    JOptionPane.showMessageDialog(this, "Curso Inserido com sucesso!");
+                    telaConsulta.atualizarTabela("SELECT * FROM Curso c;");
+                    JOptionPane.showMessageDialog(this, "Este curso foi cadastrado com sucesso!");
                 } else {
                     JOptionPane.showMessageDialog(this, "Esse curso já foi cadastrado!",
                             "Cadastro de Curso", JOptionPane.ERROR_MESSAGE);
@@ -283,7 +269,8 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             try {
                 this.getDados();
                 cursoDAO.atualizar(curso);
-                JOptionPane.showMessageDialog(this, "Curso Atualizado com sucesso!");
+                telaConsulta.atualizarTabela("SELECT * FROM Curso c;");
+                JOptionPane.showMessageDialog(this, "Este curso foi atualizado com sucesso!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             } finally {
@@ -302,7 +289,8 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         if (curso != null) {
             try {
                 cursoDAO.remover(curso);
-                JOptionPane.showMessageDialog(this, "Curso Removido com sucesso!");
+                telaConsulta.atualizarTabela("SELECT * FROM Curso c;");
+                JOptionPane.showMessageDialog(this, "Este curso foi removido com sucesso!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             } finally {
@@ -311,11 +299,6 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
-
-    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        JOptionPane.showMessageDialog(this, "A Operação está sendo encerrada!");
-        this.dispose();
-    }//GEN-LAST:event_btVoltarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         this.limparCampos();
@@ -389,20 +372,19 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
+            @Override
             public void run() {
                 DlgGerenciadorCurso dialog = new DlgGerenciadorCurso(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -422,7 +404,6 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btConsultar;
     private javax.swing.JButton btExcluir;
-    private javax.swing.JButton btVoltar;
     private javax.swing.JCheckBox chBStatus;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCargaHoraria;

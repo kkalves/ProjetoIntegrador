@@ -22,7 +22,7 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         initComponents();
     }
     DlgConsultarOrientador janelaConsulta = new DlgConsultarOrientador(null, true);
-    private OrientadorDAO orientadorDAO = new OrientadorDAO();
+    private final OrientadorDAO orientadorDAO = new OrientadorDAO();
     private Orientador orientador;
 
     @SuppressWarnings("unchecked")
@@ -65,7 +65,6 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         cbEstado = new javax.swing.JComboBox();
         ftfCpf = new javax.swing.JFormattedTextField();
         ftfRg = new javax.swing.JFormattedTextField();
-        btVoltar = new javax.swing.JButton();
         panelBotoes = new javax.swing.JPanel();
         btCadastrar = new javax.swing.JButton();
         btConsultar = new javax.swing.JButton();
@@ -73,7 +72,7 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         btExcluir = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciador de Orientadores");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Orientador", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(0, 102, 204))); // NOI18N
@@ -88,7 +87,7 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         lbTitulacao.setText("Titulação:");
 
         cbTitulacao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbTitulacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Graduado", "Licenciado", "Mestre", "Doutor" }));
+        cbTitulacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Técnico", "Graduação", "Especialização", "MBA", "Mestrado", "Doutorado" }));
         cbTitulacao.setSelectedIndex(-1);
 
         lbCpf.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -211,8 +210,9 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         jLabel14.setText("Estado:");
 
         cbEstado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SC" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Goiás", "Espírito Santo", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraiba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Rorâima", "São Paulo", "Santa Catarina", "Sergipe", "Tocantins" }));
         cbEstado.setSelectedIndex(-1);
+        cbEstado.setToolTipText("");
 
         javax.swing.GroupLayout panelEnderecoLayout = new javax.swing.GroupLayout(panelEndereco);
         panelEndereco.setLayout(panelEnderecoLayout);
@@ -225,20 +225,22 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEnderecoLayout.createSequentialGroup()
-                        .addComponent(tfCidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14))
-                    .addComponent(tfBairro, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEnderecoLayout.createSequentialGroup()
-                        .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfNumero)
-                    .addComponent(cbEstado, 0, 63, Short.MAX_VALUE))
+                    .addGroup(panelEnderecoLayout.createSequentialGroup()
+                        .addGroup(panelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfBairro, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEnderecoLayout.createSequentialGroup()
+                                .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfNumero))
+                    .addGroup(panelEnderecoLayout.createSequentialGroup()
+                        .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel14)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelEnderecoLayout.setVerticalGroup(
@@ -363,15 +365,6 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbCpf, lbNome, lbRg, lbTitulacao});
 
-        btVoltar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/back.png"))); // NOI18N
-        btVoltar.setText("Voltar");
-        btVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btVoltarActionPerformed(evt);
-            }
-        });
-
         panelBotoes.setLayout(new java.awt.GridLayout(1, 0));
 
         btCadastrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -433,13 +426,9 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panelBotoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
+                    .addComponent(panelBotoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -448,8 +437,6 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btVoltar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -463,7 +450,9 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                 orientador = new Orientador();
                 this.getDados();
                 if (orientadorDAO.cadastrar(orientador)) {
-                    JOptionPane.showMessageDialog(this, "Orientador inserido com sucesso!!");
+                    janelaConsulta.atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
+                    + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
+                    JOptionPane.showMessageDialog(this, "Este orientador foi inserido com sucesso!");
                 } else {
                     JOptionPane.showMessageDialog(this, "Já existe orientador cadastrado!",
                             "Cadastro de  Orientador", JOptionPane.ERROR_MESSAGE);
@@ -471,8 +460,7 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                 }
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Um erro inesperado aconteceu, Desculpa o Trantorno!",
-                    "ERRO!" + ex.getMessage(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERRO: " + ex.getMessage());
         } catch (ParseException | IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(this, "ERRO!: " + ex.getMessage());
         } finally {
@@ -498,6 +486,8 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
             try {
                 this.getDados();
                 orientadorDAO.atualizar(orientador);
+                janelaConsulta.atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
+                    + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
                 JOptionPane.showMessageDialog(this, "Orientador atualizado com sucesso!!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO!: " + ex.getMessage());
@@ -514,9 +504,11 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         if (orientador != null) {
             try {
                 orientadorDAO.remover(orientador);
-                JOptionPane.showMessageDialog(this, "Curso Removido com sucesso!");
+                janelaConsulta.atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
+                    + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
+                JOptionPane.showMessageDialog(this, "Este orientador foi removido com sucesso!");
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage());
             } finally {
                 this.limparCampos();
                 this.tratarControles(false);
@@ -524,17 +516,12 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
-    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        JOptionPane.showMessageDialog(this, "A Operação está sendo encerrada!");
-        this.dispose();
-    }//GEN-LAST:event_btVoltarActionPerformed
-
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         this.limparCampos();
         this.tratarControles(false);
     }//GEN-LAST:event_btCancelarActionPerformed
 
-    private void setDados() {
+     private void setDados() {
         MaskFormatter mf = null;
         this.tfNome.setText(orientador.getNome());
         this.jChStatus.setSelected(orientador.isStatus());
@@ -675,19 +662,17 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
+            @Override
             public void run() {
                 DlgGerenciadorOrientador dialog = new DlgGerenciadorOrientador(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -707,7 +692,6 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btConsultar;
     private javax.swing.JButton btExcluir;
-    private javax.swing.JButton btVoltar;
     private javax.swing.JComboBox cbEstado;
     private javax.swing.JComboBox cbTitulacao;
     private com.toedter.calendar.JDateChooser dtcDataEntrada;

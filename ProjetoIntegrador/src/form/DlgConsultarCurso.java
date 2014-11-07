@@ -25,14 +25,14 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
         }
     }
     
-    private void atualizarTabela(String sql) {
+    public void atualizarTabela(String sql) {
         try {
             listaCurso = cursoDAO.consultarSQL(sql);
             if (listaCurso != null) {
                 tableCurso.setModel(new CursoTableModel(listaCurso));
             }
         } catch (SQLException ex) {
-            System.out.println("Erro ao consultarna base de dados");
+            JOptionPane.showMessageDialog(this, "ERRO: "+ ex.getMessage());
         }
     }
 
@@ -103,7 +103,7 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
         });
 
         btVoltar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/back.png"))); // NOI18N
+        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Voltar.png"))); // NOI18N
         btVoltar.setText("Voltar");
         btVoltar.setActionCommand("btVoltar");
         btVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -130,17 +130,16 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btCancelar)
-                            .addGap(152, 152, 152)
-                            .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btCancelar)
+                        .addGap(152, 152, 152)
+                        .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -182,14 +181,14 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "O curso não foi encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
-            System.out.println("Erro de SQL Buscar por nome!");
+            JOptionPane.showMessageDialog(this, "ERRO: "+ ex.getMessage());
         }
     }//GEN-LAST:event_btBuscarActionPerformed
     DlgGerenciadorCurso janelaCurso;
     private void tableCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCursoMouseClicked
         if (evt.getClickCount() == 2) {
             if (this.tableCurso.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(this, "Selecione um curso!");
+                JOptionPane.showMessageDialog(this, "É nescessário selecionar um curso na tabela!");
             } else {
                 int linhaSelecionada = this.tableCurso.getSelectedRow();
                 int idCurso = (int) this.tableCurso.getValueAt(linhaSelecionada, 0);
@@ -209,7 +208,7 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
 
     private void btEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarActionPerformed
         if (this.tableCurso.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Selecione um curso!");
+            JOptionPane.showMessageDialog(this, "É nescessário selecionar um curso na tabela!");
         } else {
             int linhaSelecionada = this.tableCurso.getSelectedRow();
             int idCurso = Integer.parseInt((String) this.tableCurso.getValueAt(linhaSelecionada, 0));

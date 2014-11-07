@@ -1,18 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package table;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Orientador;
+import model.Aluno;
 
 /**
  *
- * @author Giseli e Keyve
+ * @author Família
  */
-public class OrientadorTableModel extends AbstractTableModel {
+public class AlunoTableModel extends AbstractTableModel {
 
-    private final List<Orientador> valores;
+    private List<Aluno> valores;
 
-    public OrientadorTableModel(List<Orientador> valores) {
+    public AlunoTableModel(List<Aluno> valores) {
         this.valores = valores;
     }
 
@@ -28,22 +33,22 @@ public class OrientadorTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Orientador orientador = valores.get(rowIndex);
+        Aluno aluno = valores.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return orientador.getId();
+                return aluno.getId();
             case 1:
-                return orientador.getNome();
+                return aluno.getNome();
             case 2:
-                return orientador.getCpf();
+                return aluno.getCpf();
             case 3:
-                return orientador.getRg();
+                return aluno.getRg();
             case 4:
-                return orientador.getTitulacao();
+                return aluno.getTelefone();
             case 5:
-                return orientador.getDataEntrada();
+                return aluno.getDataNascimento();
             case 6:
-                return (orientador.isStatus() ? "Ativo" : "Inativo");
+                return aluno.getSituacao();
         }
         return null;
     }
@@ -61,11 +66,11 @@ public class OrientadorTableModel extends AbstractTableModel {
             case 3:
                 return coluna = "RG";
             case 4:
-                return coluna = "Titulação";
+                return coluna = "Telefone";
             case 5:
-                return coluna = "Data De Entrada";
+                return coluna = "Data De Nascimento";
             case 6:
-                return coluna = "Status";
+                return coluna = "Situação";
         }
         return null;
     }
@@ -91,7 +96,7 @@ public class OrientadorTableModel extends AbstractTableModel {
         return null;
     }
 
-    public Orientador get(int row) {
+    public Aluno get(int row) {
         return valores.get(row);
     }
 }

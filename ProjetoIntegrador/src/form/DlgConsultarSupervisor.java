@@ -1,21 +1,18 @@
 package form;
 
 import dao.SupervisorDAO;
-import dao.SupervisorDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Supervisor;
-import model.Supervisor;
-import table.SupervisorTableModel;
 import table.SupervisorTableModel;
 
 /**
  *
  * @author Giseli E Keyve
  */
-public class DlgConsultarSupervisor extends javax.swing.JDialog {
+public final class DlgConsultarSupervisor extends javax.swing.JDialog {
 
     public DlgConsultarSupervisor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -30,7 +27,11 @@ public class DlgConsultarSupervisor extends javax.swing.JDialog {
     List<Supervisor> listaSupervisor = new ArrayList<>();
     Supervisor supervisor;
 
-    private void atualizarTabela(String sql) {
+    /**
+     *
+     * @param sql
+     */
+    public void atualizarTabela(String sql) {
         try {
             listaSupervisor = supervisorDAO.consultarSQL(sql);
             if (listaSupervisor != null) {
@@ -362,6 +363,8 @@ public class DlgConsultarSupervisor extends javax.swing.JDialog {
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
             public void run() {
                 DlgConsultarSupervisor dialog = new DlgConsultarSupervisor(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {

@@ -1,6 +1,8 @@
 package model;
 
-import java.util.GregorianCalendar;
+import java.util.Date;
+import java.util.InputMismatchException;
+
 
 /**
  *
@@ -13,21 +15,44 @@ public class Aluno {
     private String cpf;
     private String rg;
     private String telefone;
+    private String email;
+    private String escolaridade;
+    private String observacoes;
+    private String situacao;
+    private Date dataNascimento;
     private Endereco endereco;
     private ContaBancaria contaBancaria;
-    private GregorianCalendar dataNascimento;
-    private String escolaridade;
-    private String observações;
-    private boolean statusAluno;
 
-    public Aluno(String nome, String rg, String telefone, Endereco endereco, ContaBancaria contaBancaria, GregorianCalendar dataNascimento, String escolaridade) {
+    public Aluno(int id, String nome, String cpf, String rg, String telefone, String email, String escolaridade, String observacoes, String situacao, Date dataNascimento, Endereco endereco, ContaBancaria contaBancaria) {
+        this.id = id;
         this.nome = nome;
+        this.cpf = cpf;
         this.rg = rg;
         this.telefone = telefone;
+        this.email = email;
+        this.escolaridade = escolaridade;
+        this.observacoes = observacoes;
+        this.situacao = situacao;
+        this.dataNascimento = dataNascimento;
         this.endereco = endereco;
         this.contaBancaria = contaBancaria;
-        this.dataNascimento = dataNascimento;
+    }
+
+    public Aluno(String nome, String cpf, String rg, String telefone, String email, String escolaridade, String observacoes, String situacao, Date dataNascimento, Endereco endereco, ContaBancaria contaBancaria) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.telefone = telefone;
+        this.email = email;
         this.escolaridade = escolaridade;
+        this.observacoes = observacoes;
+        this.situacao = situacao;
+        this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
+        this.contaBancaria = contaBancaria;
+    }
+    
+    public Aluno() {
     }
 
     public int getId() {
@@ -69,6 +94,46 @@ public class Aluno {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEscolaridade() {
+        return escolaridade;
+    }
+
+    public void setEscolaridade(String escolaridade) {
+        this.escolaridade = escolaridade;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
     public Endereco getEndereco() {
         return endereco;
@@ -86,38 +151,6 @@ public class Aluno {
         this.contaBancaria = contaBancaria;
     }
 
-    public GregorianCalendar getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(GregorianCalendar dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getEscolaridade() {
-        return escolaridade;
-    }
-
-    public void setEscolaridade(String escolaridade) {
-        this.escolaridade = escolaridade;
-    }
-
-    public String getObservações() {
-        return observações;
-    }
-
-    public void setObservações(String observações) {
-        this.observações = observações;
-    }
-
-    public boolean isStatusAluno() {
-        return statusAluno;
-    }
-
-    public void setStatusAluno(boolean statusAluno) {
-        this.statusAluno = statusAluno;
-    }
-
     @Override
     public String toString() {
         return nome;
@@ -125,8 +158,8 @@ public class Aluno {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + this.id;
+        int hash = 5;
+        hash = 79 * hash + this.id;
         return hash;
     }
 
@@ -139,9 +172,54 @@ public class Aluno {
             return false;
         }
         final Aluno other = (Aluno) obj;
-        if (this.id != other.id) {
+        return this.id == other.id;
+    }
+    
+    public boolean isCPF(String CPF) {
+        if (CPF.equals("00000000000") || CPF.equals("11111111111")
+                || CPF.equals("22222222222") || CPF.equals("33333333333")
+                || CPF.equals("44444444444") || CPF.equals("55555555555")
+                || CPF.equals("66666666666") || CPF.equals("77777777777")
+                || CPF.equals("88888888888") || CPF.equals("99999999999")
+                || (CPF.length() != 11)) {
             return false;
         }
-        return true;
+        char dig10, dig11;
+        int sm, i, r, num, peso;
+        try {
+            sm = 0;
+            peso = 10;
+            for (i = 0; i < 9; i++) {
+                num = (int) (CPF.charAt(i) - 48);
+                sm = sm + (num * peso);
+                peso = peso - 1;
+            }
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11)) {
+                dig10 = '0';
+            } else {
+                dig10 = (char) (r + 48);
+                sm = 0;
+                peso = 11;
+                for (i = 0; i < 10; i++) {
+                    num = (int) (CPF.charAt(i) - 48);
+                    sm = sm + (num * peso);
+                    peso = peso - 1;
+                }
+            }
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11)) {
+                dig11 = '0';
+            } else {
+                dig11 = (char) (r + 48);
+            }
+            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (InputMismatchException erro) {
+            return false;
+        }
     }
 }

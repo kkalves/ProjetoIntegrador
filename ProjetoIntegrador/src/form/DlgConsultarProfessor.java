@@ -27,7 +27,7 @@ public class DlgConsultarProfessor extends javax.swing.JDialog {
     List<Professor> listaProfessor = new ArrayList<>();
     Professor professor;
 
-    private void atualizarTabela(String sql) {
+    public void atualizarTabela(String sql) {
         try {
             listaProfessor = professorDAO.consultarSQL(sql);
             if (listaProfessor != null) {
