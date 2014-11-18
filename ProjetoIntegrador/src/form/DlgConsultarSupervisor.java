@@ -155,7 +155,7 @@ public final class DlgConsultarSupervisor extends javax.swing.JDialog {
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         btVoltar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/back.png"))); // NOI18N
+        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Voltar.png"))); // NOI18N
         btVoltar.setText("Voltar");
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

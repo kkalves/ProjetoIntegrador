@@ -288,7 +288,7 @@
               <Font name="Arial" size="18" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon/back.png"/>
+              <Image iconType="3" name="/icon/Voltar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>

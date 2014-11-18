@@ -1,6 +1,7 @@
 package form;
 
 import dao.OrientadorDAO;
+import exceptions.OrientadorException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -451,7 +452,7 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                 this.getDados();
                 if (orientadorDAO.cadastrar(orientador)) {
                     janelaConsulta.atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
-                    + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
+                            + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
                     JOptionPane.showMessageDialog(this, "Este orientador foi inserido com sucesso!");
                 } else {
                     JOptionPane.showMessageDialog(this, "Já existe orientador cadastrado!",
@@ -462,6 +463,8 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "ERRO: " + ex.getMessage());
         } catch (ParseException | IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "ERRO!: " + ex.getMessage());
+        } catch (OrientadorException ex) {
             JOptionPane.showMessageDialog(this, "ERRO!: " + ex.getMessage());
         } finally {
             this.limparCampos();
@@ -487,11 +490,13 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                 this.getDados();
                 orientadorDAO.atualizar(orientador);
                 janelaConsulta.atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
-                    + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
+                        + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
                 JOptionPane.showMessageDialog(this, "Orientador atualizado com sucesso!!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO!: " + ex.getMessage());
             } catch (ParseException | IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(this, "ERRO!: " + ex.getMessage());
+            } catch (OrientadorException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO!: " + ex.getMessage());
             } finally {
                 this.limparCampos();
@@ -505,7 +510,7 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
             try {
                 orientadorDAO.remover(orientador);
                 janelaConsulta.atualizarTabela("SELECT * FROM Orientador o, Endereco e, ContaBancaria cb "
-                    + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
+                        + "WHERE o.idEndereco = e.idEndereco AND o.idContaBancaria = cb.idContaBancaria;");
                 JOptionPane.showMessageDialog(this, "Este orientador foi removido com sucesso!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage());
@@ -521,7 +526,7 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
         this.tratarControles(false);
     }//GEN-LAST:event_btCancelarActionPerformed
 
-     private void setDados() {
+    private void setDados() {
         MaskFormatter mf = null;
         this.tfNome.setText(orientador.getNome());
         this.jChStatus.setSelected(orientador.isStatus());
@@ -561,14 +566,10 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
     }
     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
-    private void getDados() throws ParseException {
+    private void getDados() throws ParseException, OrientadorException {
         if (!tfNome.getText().isEmpty()) {
             orientador.setNome(tfNome.getText());
-            if (orientador.isCPF(this.ftfCpf.getText())) {
-                orientador.setCpf(ftfCpf.getText());
-            } else {
-                throw new IllegalArgumentException("CPF Inválido");
-            }
+            orientador.setCpf(ftfCpf.getText());
             orientador.setRg(ftfRg.getText());
             orientador.setDataEntrada(dtcDataEntrada.getDate());
             orientador.setTitulacao(cbTitulacao.getSelectedItem().toString());
@@ -592,7 +593,23 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
                     )
             );
         }
+        validar();
     }
+    
+    private void validar() throws OrientadorException{
+        if (orientador.getNome().isEmpty()) {
+            throw new OrientadorException("O campo 'Nome' é obrigatório");
+        }
+        if (!orientador.getEmail().contains("@")) {
+            throw new OrientadorException("Verifique se o email informado está correto!");
+        }
+        if (!campoNumerico(orientador.getTelefone())) {
+            throw new OrientadorException("Verifique se os digitos do telefone estão corretos");
+        }
+    }
+    private boolean campoNumerico(String campo){ 
+        return campo.matches("[0-9]{"+campo.length()+"}");  
+    } 
 
     private void tratarCampos(boolean status) {
         this.tfNome.setEnabled(status);
@@ -666,12 +683,12 @@ public class DlgGerenciadorOrientador extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(DlgConsultarOrientador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 DlgGerenciadorOrientador dialog = new DlgGerenciadorOrientador(new javax.swing.JFrame(), true);

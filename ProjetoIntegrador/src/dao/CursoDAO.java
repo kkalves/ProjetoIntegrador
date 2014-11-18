@@ -16,7 +16,7 @@ public class CursoDAO {
 
     public boolean cadastrar(Curso curso) throws SQLException {
         PreparedStatement pstm;
-        String sqlInserir = "INSERT INTO curso (nome, descricao, eixoTecnologico, cargaHoraria, status)"
+        String sqlInserir = "INSERT INTO Curso (nome, descricao, eixoTecnologico, cargaHoraria, status)"
                 + " VALUES (?, ?, ?, ?, ?);";
         pstm = DBConnection.getConnection().prepareStatement(sqlInserir);
         pstm.setString(1, curso.getNome());
@@ -32,7 +32,7 @@ public class CursoDAO {
 
     public void atualizar(Curso curso) throws SQLException {
         PreparedStatement pstm;
-        String sqlAtualizar = "UPDATE curso c SET c.nome = ?, c.descricao = ?, c.eixoTecnologico = ?,"
+        String sqlAtualizar = "UPDATE Curso c SET c.nome = ?, c.descricao = ?, c.eixoTecnologico = ?,"
                 + " c.cargaHoraria = ?, c.status = ?"
                 + " WHERE c.idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlAtualizar);
@@ -49,7 +49,7 @@ public class CursoDAO {
 
     public void remover(Curso curso) throws SQLException {
         PreparedStatement pstm;
-        String sqlRemover = "DELETE FROM curso WHERE idCurso = ?;";
+        String sqlRemover = "DELETE FROM Curso WHERE idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlRemover);
         pstm.setInt(1, curso.getId());
         pstm.executeUpdate();
@@ -60,7 +60,7 @@ public class CursoDAO {
     public Curso buscarPorNome(String nome) throws SQLException {
         PreparedStatement pstm;
         ResultSet rs;
-        String sqlBuscar = "SELECT * FROM curso c WHERE nome LIKE '" + nome + "%';";
+        String sqlBuscar = "SELECT * FROM Curso c WHERE nome LIKE '" + nome + "%';";
         pstm = DBConnection.getConnection().prepareStatement(sqlBuscar);
         rs = pstm.executeQuery();
         Curso curso;
@@ -73,7 +73,7 @@ public class CursoDAO {
 
     public Curso buscarPorId(int idCurso) throws SQLException {
         PreparedStatement pstm;
-        String sqlCurso = "SELECT * FROM curso c WHERE c.idCurso = ?;";
+        String sqlCurso = "SELECT * FROM Curso c WHERE c.idCurso = ?;";
         pstm = DBConnection.getConnection().prepareStatement(sqlCurso);
         pstm.setInt(1, idCurso);
         pstm.execute();
@@ -91,7 +91,7 @@ public class CursoDAO {
         PreparedStatement pstm;
         List<Curso> cursos = new ArrayList<>();
         ResultSet rs;
-        String sqlListar = "SELECT * FROM curso c ORDER BY c.nome;";
+        String sqlListar = "SELECT * FROM Curso c ORDER BY c.nome;";
         pstm = DBConnection.getConnection().prepareStatement(sqlListar);
         rs = pstm.executeQuery();
         while (rs.next()) {
@@ -115,7 +115,8 @@ public class CursoDAO {
 
     public List<Curso> consultarSQL(String sql) throws SQLException {
         List<Curso> cursos = new ArrayList<>();
-        PreparedStatement pstm = DBConnection.getConnection().prepareStatement(sql);
+        PreparedStatement pstm;
+        pstm = DBConnection.getConnection().prepareStatement(sql);
         ResultSet rs = pstm.executeQuery();
         while (rs.next()) {
             Curso curso = transformarResultSet(rs);

@@ -1,11 +1,13 @@
 package form;
 
 import dao.CursoDAO;
+import java.awt.FontMetrics;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Curso;
+import table.CursoColumnModel;
 import table.CursoTableModel;
 
 /**
@@ -21,7 +23,7 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         if (listaCurso != null) {
-            atualizarTabela("SELECT * FROM Curso c;");
+            atualizarTabela("SELECT * FROM Curso c ORDER BY c.nome;");
         }
     }
     
@@ -30,6 +32,8 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
             listaCurso = cursoDAO.consultarSQL(sql);
             if (listaCurso != null) {
                 tableCurso.setModel(new CursoTableModel(listaCurso));
+                FontMetrics fm = tableCurso.getFontMetrics(tableCurso.getFont());
+                tableCurso.setColumnModel(new CursoColumnModel(fm));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "ERRO: "+ ex.getMessage());
@@ -139,10 +143,10 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -173,10 +177,7 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
             this.limparCampos();
             if (curso != null) {
                 JOptionPane.showMessageDialog(this, "O Curso foi encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
-                atualizarTabela("SELECT idCurso, nome, descricao, eixoTecnologico, cargaHoraria, status "
-                        + "FROM Curso c "
-                        + "WHERE c.nome LIKE \"" + curso.getNome() + "%\";");
-
+                atualizarTabela("SELECT * FROM Curso c WHERE c.nome LIKE \"" + curso.getNome() + "%\" ORDER BY c.nome;");
             } else {
                 JOptionPane.showMessageDialog(this, "O curso não foi encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -221,8 +222,7 @@ public class DlgConsultarCurso extends javax.swing.JDialog {
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         this.limparCampos();
-        atualizarTabela("SELECT idCurso, nome, descricao, eixoTecnologico, cargaHoraria, status "
-                    + "FROM Curso c;");
+        atualizarTabela("SELECT * FROM Curso c ORDER BY c.nome;");
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void limparCampos(){

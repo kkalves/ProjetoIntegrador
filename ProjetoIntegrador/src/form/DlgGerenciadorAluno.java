@@ -374,6 +374,11 @@ public class DlgGerenciadorAluno extends javax.swing.JDialog {
         btConsultar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Consultar.png"))); // NOI18N
         btConsultar.setText("Consultar");
+        btConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultarActionPerformed(evt);
+            }
+        });
         panelBotao.add(btConsultar);
 
         btAlterar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -511,6 +516,11 @@ public class DlgGerenciadorAluno extends javax.swing.JDialog {
             this.limparCampos();
         }
     }//GEN-LAST:event_btCadastrarActionPerformed
+
+    private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
+        this.setVisible(false);
+        janelaConsulta.setVisible(true);
+    }//GEN-LAST:event_btConsultarActionPerformed
     
     private void setDados() {
         MaskFormatter mf = null;

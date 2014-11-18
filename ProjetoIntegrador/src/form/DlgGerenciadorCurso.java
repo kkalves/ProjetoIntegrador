@@ -1,10 +1,9 @@
 package form;
 
 import dao.CursoDAO;
+import exceptions.CursoException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Curso;
 
@@ -259,6 +258,8 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+        } catch (CursoException ex) {
+            JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
         } finally {
             this.limparCampos();
         }
@@ -272,6 +273,8 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
                 telaConsulta.atualizarTabela("SELECT * FROM Curso c;");
                 JOptionPane.showMessageDialog(this, "Este curso foi atualizado com sucesso!");
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            } catch (CursoException ex) {
                 JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             } finally {
                 this.limparCampos();
@@ -305,12 +308,23 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
         this.tratarControles(false);
     }//GEN-LAST:event_btCancelarActionPerformed
 
-    private void getDados() {
+    private void getDados() throws CursoException {
         curso.setNome(tfNome.getText());
         curso.setDescricao(taDescricao.getText());
         curso.setEixoTecnologico(tfEixoTecnologico.getText());
         curso.setCargaHoraria(tfCargaHoraria.getText());
         curso.setStatus(chBStatus.isSelected());
+        validar();
+    }
+    
+    private void validar() throws CursoException{
+        if (curso.getNome().isEmpty()) {
+            throw new CursoException("O Campo 'Nome' é um campo obrigatório!");
+        }else if (curso.getEixoTecnologico().isEmpty()) {
+            throw new CursoException("O Campo 'Eixo Técnológico' é um campo obrigatório!");
+        }else if (curso.getCargaHoraria().isEmpty()) {
+            throw new CursoException("O Campo 'Carga Horária' é um campo obrigatório!");
+        }
     }
 
     private void setDados() {
@@ -352,7 +366,7 @@ public class DlgGerenciadorCurso extends javax.swing.JDialog {
             this.chBStatus.setSelected(curso.isStatus());
             this.tratarControles(true);
         } catch (SQLException ex) {
-            Logger.getLogger(DlgGerenciadorCurso.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "ERRO! " + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
         }
     }
 

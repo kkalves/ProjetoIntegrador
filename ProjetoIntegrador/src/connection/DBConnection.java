@@ -19,6 +19,10 @@ public class DBConnection {
     }
 
     private static Connection connect() throws SQLException {
+        /*String url = "jdbc:mysql://acad03.lages.ifsc.edu.br:3306/ProjetoIntegradorCompleto";//aluno:@acad03.lages.ifsc.edu.br:3306:
+        String driverMySQL = "com.mysql.jdbc.Driver";
+        String user = "aluno";
+        String pass = "lages";*/
         String url = "jdbc:mysql://localhost/projetointegrador";
         String driverMySQL = "com.mysql.jdbc.Driver";
         String user = "root";

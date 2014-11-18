@@ -39,7 +39,7 @@ public class CursoTableModel extends AbstractTableModel {
             case 3:
                 return curso.getCargaHoraria();
             case 4:
-                return (curso.isStatus() ? "Ativo" : "Inativo");
+                return (curso.isStatus() ? "Inativo" : "Ativo");
         }
         return null;
     }
